@@ -1,6 +1,5 @@
 -- [ bot made by krone and krone only nobody else ]
--- [ only being krone works else you get logged xD ]
--- [ anyone claiming they have the source is larp ]
+-- [ opened source because its a shitty bot so who cares ]
 
 Players, RunService, HttpService, TPService = game:GetService("Players"), game:GetService("RunService"), game:GetService("HttpService"), game:GetService("TeleportService")
 
