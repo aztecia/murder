@@ -93,8 +93,8 @@ local ChatLists = {
       "lucifer - SOULFUL *REMIX*",
       "kursses - LAIT! #fantasia",
       "forevermore - my words never heard",
-      "swif - tryna do',
-      "kxr & swif - stanza',
+      "swif - tryna do",
+      "kxr & swif - stanza",
       "swif - feel // abyss",
     },
     FriendlyOffer = {
