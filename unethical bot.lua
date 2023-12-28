@@ -92,7 +92,10 @@ local ChatLists = {
       "*67 - lov u like a razor",
       "lucifer - SOULFUL *REMIX*",
       "kursses - LAIT! #fantasia",
-      "forevermore - my words never heard"
+      "forevermore - my words never heard",
+      "swif - tryna do',
+      "kxr & swif - stanza',
+      "swif - feel // abyss",
     },
     FriendlyOffer = {
       "maybe we can play a game some day when im online.",
