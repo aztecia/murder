@@ -241,7 +241,7 @@ end
 task.spawn(function() 
     while true do 
         wait(1.675) 
-        Chat("join /held || Heres a random song: " .. ChatLists.songTable[math.random(1, (#ChatLists.songTable))]) 
+        Chat("join /zag4pfrvGZ || Heres a random song: " .. ChatLists.songTable[math.random(1, (#ChatLists.songTable))]) 
     end 
 end)
 --------------------------------------------------------------------------
@@ -257,7 +257,7 @@ local rot = 0
 --[ Fling Function ]--
 wait(1)
 
-local autokillfling = function(Player, Delay)
+local orbitplr = function(Player, Delay)
     pcall(function()
         workspace['FallenPartsDestroyHeight'] = 0 / 0
         workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
@@ -266,14 +266,14 @@ local autokillfling = function(Player, Delay)
         local LastCF = Me.CFrame
         local Delay = Delay or 1 / 5
         local Angle = 165
-        autokillfling = game:GetService('RunService').Stepped:connect(function(t, dt)
+        orbitplr = game:GetService('RunService').Stepped:connect(function(t, dt)
             rot = rot + dt * rotspeed
             Me.CFrame = rotation * CFrame.new(sin(rot) * eclipse, 0, cos(rot) * radius) + Target.Position
         end)
 
         wait(Delay)
         LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
-        autokillfling:Disconnect()
+        orbitplr:Disconnect()
     end)
 end
 --------------------------------------------------------------------------
@@ -282,7 +282,7 @@ end
 spawn(function()
     while true do
         for _, v in pairs(game.Players:GetPlayers()) do
-            autokillfling(v, 2)
+            orbitplr(v, 2)
         end
         wait()
     end
