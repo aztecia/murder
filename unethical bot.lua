@@ -184,7 +184,7 @@ local Blacklist = {
     9412752, 1052736001, 3810754327, 2205824526, 697595
 }
 
-local kroneUserids = {2435027122}
+local kroneUserids = {"2435027122"}
 
 getgenv().rejoin = game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
     if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
