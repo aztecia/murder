@@ -15,7 +15,7 @@ local kroneUserids = {2435027122}
 local CheckUser = function(User)
     local UserId = User["UserId"]
 
-    if table.find(tonumber(kroneUserids), UserId) then
+    if table.find(kroneUserids, UserId) then
 --        table.insert(WhitelistedPlayers, UserId)
         Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
         Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
