@@ -377,9 +377,9 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
 
         -- Teleport 10 studs away from the target player
         local teleportPosition = character.HumanoidRootPart.Position + Vector3.new(10, 0, 0)
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(teleportPosition)
+        game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(teleportPosition)
         wait()
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, character.HumanoidRootPart.Position)
+        game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, character.HumanoidRootPart.Position)
         -- Create a path to the target player
         local pathfindingService = game:GetService("PathfindingService")
         local path = pathfindingService:CreatePath({
@@ -411,11 +411,11 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
         for i,v in pairs(path:GetWaypoints()) do
             game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position)
         end
-        wait(1)
+        wait(1.5)
         coroutine.wrap(function()
-            repeat wait()
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPlayer.Character.HumanoidRootPart.Position + Vector3.new(5, 0, 0))
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, targetPlayer.Character.HumanoidRootPart.Position)
+            repeat task.wait()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(character.HumanoidRootPart.Position + Vector3.new(5, 0, 0))
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, character.HumanoidRootPart.Position)
             until ending
         end)()
         Chat(ChatLists.greetTable[math.random(1, (#ChatLists.greetTable))] .. " " .. targetPlayer.DisplayName .. " ")
