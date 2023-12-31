@@ -373,7 +373,7 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
     if targetPlayer ~= game.Players.LocalPlayer and targetPlayer.Character then
         local character = targetPlayer.Character
         local humanoid = character:FindFirstChild("Humanoid")
-        local end = false
+        local ending = false
 
         -- Teleport 10 studs away from the target player
         local teleportPosition = character.HumanoidRootPart.Position + Vector3.new(10, 0, 0)
@@ -428,7 +428,7 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
         wait(1.5)
         Chat(ChatLists.ServerVanity[math.random(1, (#ChatLists.ServerVanity))] .. " see you soon || made by krone")
         playRandomWaveAnimation()
-        end = true
+        ending = true
         wait(3)
     end
 end
