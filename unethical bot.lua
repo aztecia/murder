@@ -319,7 +319,7 @@ end
 task.spawn(function() 
     while true do 
         wait(1.675) 
-        Chat("join /scratch || Heres a random song: " .. ChatLists.songTable[math.random(1, (#ChatLists.songTable))]) 
+        Chat("join /insist || Heres a random song: " .. ChatLists.songTable[math.random(1, (#ChatLists.songTable))]) 
     end 
 end)
 --------------------------------------------------------------------------
