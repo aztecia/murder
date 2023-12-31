@@ -434,7 +434,7 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
 end
 Chat("For some reason i can smell that Roblox Default Chat Systems is broken and keeps tagging my greetings..")
 wait(1)
-Chat(Chat(ChatLists.ServerVanity[math.random(1, (#ChatLists.ServerVanity))] .. " || Serverhopping")
+Chat(ChatLists.ServerVanity[math.random(1, (#ChatLists.ServerVanity))] .. " || Serverhopping")
 wait(1)
 hop()
 wait(5)
