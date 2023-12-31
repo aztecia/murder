@@ -414,8 +414,8 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
         wait(1)
         coroutine.wrap(function()
             repeat wait()
-                humanoidRootPart.CFrame = CFrame.new(player.Character.HumanoidRootPart.Position + Vector3.new(5, 0, 0))
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, player.Character.HumanoidRootPart.Position)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPlayer.Character.HumanoidRootPart.Position + Vector3.new(5, 0, 0))
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, targetPlayer.Character.HumanoidRootPart.Position)
             until ending
         end)()
         Chat(ChatLists.greetTable[math.random(1, (#ChatLists.greetTable))] .. " " .. targetPlayer.DisplayName .. " ")
