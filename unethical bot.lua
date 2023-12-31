@@ -420,7 +420,7 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
         end)()
         Chat(ChatLists.greetTable[math.random(1, (#ChatLists.greetTable))] .. " " .. targetPlayer.DisplayName .. " ")
         wait(2)
-        Chat("I have a secret.")
+        Chat(ChatLists.socialmanipulationTable[math.random(1, (#ChatLists.socialmanipulationTable))])
         wait(2)
         Chat(ChatLists.ServerVanity[math.random(1, (#ChatLists.ServerVanity))] .. " | find out what the rest when you join.")
         wait(2.35)
