@@ -117,6 +117,7 @@ end
 local Chat = function(Input)
 	game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(Input, "All")
 end
+--[[
 local CheckUser = function(User)
     local UserId = User["UserId"]
 
@@ -137,7 +138,7 @@ end
 game.Players["PlayerAdded"]:Connect(function(v)
     CheckUser(v)
 end)
-
+]]--
 for i,v in next, workspace:GetDescendants() do
     if v:IsA'Seat' then
         v:Destroy()
@@ -426,7 +427,7 @@ for _, targetPlayer in pairs(game.Players:GetPlayers()) do
         wait(2.35)
         Chat("heres a song u should listen to. "  .. ChatLists.songTable[math.random(1, (#ChatLists.songTable))])
         wait(2)
-        Chat(ChatLists.ServerVanity[math.random(1, (#ChatLists.ServerVanity))] .. " see you soon || made by krone")
+        Chat(ChatLists.ServerVanity[math.random(1, (#ChatLists.ServerVanity))] .. " see you soon || krone x hate")
         playRandomWaveAnimation()
         ending = true
         wait(3)
