@@ -12,26 +12,6 @@ workspace["FallenPartsDestroyHeight"] = 0/0
 game:GetService("Lighting").ClockTime = 0
 --[ Table Checks ]--
 local kroneUserids = {2435027122}
-local CheckUser = function(User)
-    local UserId = User["UserId"]
-
-    if table.find(kroneUserids, UserId) then
---        table.insert(WhitelistedPlayers, UserId)
-        Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
-        Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
-        Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
-    end
-end
-
-for _,v in pairs(game.Players:GetPlayers()) do
-    if v ~= game.Players.LocalPlayer then
-        CheckUser(v)
-    end
-end
-
-game.Players["PlayerAdded"]:Connect(function(v)
-    CheckUser(v)
-end)
 -----------------------------------
 -----------------------------------
 -----------------------------------
@@ -137,6 +117,26 @@ end
 local Chat = function(Input)
 	game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(Input, "All")
 end
+local CheckUser = function(User)
+    local UserId = User["UserId"]
+
+    if table.find(kroneUserids, UserId) then
+--        table.insert(WhitelistedPlayers, UserId)
+        Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
+        Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
+        Chat("Presence of the Owner \"" .. User["DisplayName"] .. "\" has been detected.")
+    end
+end
+
+for _,v in pairs(game.Players:GetPlayers()) do
+    if v ~= game.Players.LocalPlayer then
+        CheckUser(v)
+    end
+end
+
+game.Players["PlayerAdded"]:Connect(function(v)
+    CheckUser(v)
+end)
 
 for i,v in next, workspace:GetDescendants() do
     if v:IsA'Seat' then
