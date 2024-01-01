@@ -16,7 +16,6 @@ getgenv().DuoTable = {
         "best botted server || hate",
         "im sooo much better than you || hate",
         "Hi everyone || hate",
-        "@hatetoseeyouleave || hate"
     },
     krone = {
         "best source known to man || krone",
