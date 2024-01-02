@@ -7,6 +7,17 @@ Players, RunService, HttpService, TPService = game:GetService("Players"), game:G
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
 
+local function delayAndTeleport()
+    local function teleport()
+          game:GetService("TeleportService"):Teleport(game.PlaceId)
+    end
+    local delayTime = 90 -- Adjust the delay time (in seconds) as needed
+    wait(delayTime)
+
+    teleport()
+end
+
+coroutine.wrap(delayAndTeleport)()
 
 --[ Tables ]--
 getgenv().DuoTable = {
@@ -92,11 +103,6 @@ getgenv().rejoin = game:GetService("CoreGui").RobloxPromptGui.promptOverlay.Chil
     end
 end)
 
-game:GetService("Players").LocalPlayer.Idled:connect(function()
-    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-    wait(1)
-    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-end)
 
 
 --------------------------------------
@@ -229,7 +235,7 @@ local autokillfling = function(Player, Delay)
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Heartbeat:connect(function()
-            Me.CFrame = Target.Position * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
+            Me.CFrame = Target and Target.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
             LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
         end)
@@ -242,16 +248,16 @@ end
 
 --[ Body Velocity ]--
 
-coroutine.wrap(function()
+task.spawn(function()
     while true do
         wait()
         if #game.Players:GetPlayers() == 1 then
             pcall(ServerHop)
         end
     end
-end)()
+end)
 
-coroutine.wrap(function()
+task.spawn(function()
     while true do
         wait(0.5)
         numb = numb + 1
@@ -259,9 +265,9 @@ coroutine.wrap(function()
             pcall(hop)
         end
     end
-end)()
+end)
 
-coroutine.wrap(function()
+task.spawn(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
             if v ~= game.Players.LocalPlayer then
@@ -270,9 +276,9 @@ coroutine.wrap(function()
         end
         wait()
     end
-end)()
+end)
 
-coroutine.wrap(function()
+task.spawn(function()
     while true do
         wait(math.random(16.25))
         for _, v in ipairs(game.Players:GetPlayers()) do
@@ -281,7 +287,7 @@ coroutine.wrap(function()
             end
         end
     end
-end)()
+end)
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
