@@ -90,7 +90,8 @@ getgenv().DuoTable = {
         "dollhouse kids crying over a bot 💤 || hate",
         "im really just hoping everything is bad for yall man || hate",
         "come cry in the server bout how the bot is upsetting u 😢😢 || hate",
-        "bums 😭 || hate"
+        "bums 😭 || hate",
+        "whats the point of banning me when i can js come back || hate"
     },
     krone = {
         "best source known to man || krone",
