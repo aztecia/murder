@@ -229,7 +229,7 @@ local autokillfling = function(Player, Delay)
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Heartbeat:connect(function()
-            Me.CFrame = CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
+            Me.CFrame = Target.Position * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
             LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
         end)
@@ -241,16 +241,6 @@ end
 --------------------------------------------------------------------------
 
 --[ Body Velocity ]--
-coroutine.wrap(function()
-    while true do
-        for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                autokillfling(v, 3)
-            end
-        end
-        wait()
-    end
-end)()
 
 coroutine.wrap(function()
     while true do
@@ -268,6 +258,17 @@ coroutine.wrap(function()
         if numb == 120 then
             pcall(hop)
         end
+    end
+end)()
+
+coroutine.wrap(function()
+    while true do
+        for _, v in ipairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer then
+                autokillfling(v, 3)
+            end
+        end
+        wait()
     end
 end)()
 
