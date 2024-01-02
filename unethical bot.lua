@@ -86,6 +86,11 @@ getgenv().DuoTable = {
         "best botted server || hate",
         "im sooo much better than you || hate",
         "Hi everyone || hate",
+        "@hatetoseeyouleave || hate",
+        "dollhouse kids crying over a bot 💤 || hate",
+        "im really just hoping everything is bad for yall man || hate",
+        "come cry in the server bout how the bot is upsetting u 😢😢 || hate",
+        "bums 😭 || hate"
     },
     krone = {
         "best source known to man || krone",
@@ -95,6 +100,13 @@ getgenv().DuoTable = {
         "i feel more superior when im in your server || krone",
         "bow down to me || krone",
         "i hope you like the noise || krone",
+	"dollhouse filled with corny newgens is insane | krone",
+	"u guys really are losers | krone",
+	"go outside | krone",
+	"BOOO 👻👻👻 DOLLHOUSIANS.. OOO IM A JOB APPLICATIONNNN | krone",
+	"cry harder | krone",
+	"braden keep crying we flood ur game | krone",
+
     },
     both = {
         "best duo ngl || hate x krone",
@@ -146,6 +158,53 @@ getgenv().DuoTable = {
       "lucifer - SOULFUL *REMIX*",
       "kursses - LAIT! #fantasia",
       "forevermore - my words never heard"
+    },
+    signmsg = {
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "j",
+      "jo",
+      "joi",
+      "join",
+      "join ",
+      "join /",
+      "join /i",
+      "join /in",
+      "join /ins",
+      "join /insi",
+      "join /insis",
+      "join /insist",
+      "join /insist",
+      "join /insist lol",
+      "join /insist",
+      "join /insist",
+      "join /insis",
+      "join /insi",
+      "join /ins",
+      "join /in",
+      "join /i",
+      "join /",
+      "join ",
+      "join",
+      "joi",
+      "jo",
+      "j",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
     }
 }
 
@@ -183,7 +242,7 @@ end)
 
 for i,v in next, workspace:GetDescendants() do
     if v:IsA'Seat' then
-	    v.Disabled = true
+      v.Disabled = true
     end
 end
 --------------------------------------------------------------------------
@@ -301,7 +360,7 @@ local autokillfling = function(Player, Delay)
         local Delay = Delay or 1 / 5
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
-        autokillfling = game:GetService('RunService').Heartbeat:connect(function()
+        autokillfling = game:GetService('RunService').Stepped:connect(function()
             Me.CFrame = Target and Target.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
             LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
@@ -333,6 +392,33 @@ task.spawn(function()
             end
         end
         wait()
+    end
+end)
+
+spawn(function()
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Sign") then
+    game.Players.LocalPlayer.Backpack.Sign.Parent = game.Players.LocalPlayer.Character
+        local counter = 1
+        local total_len = #DuoTable.signmsg
+        local dir = false
+        while true do
+            local args = {
+                [1] = "text",
+                [2] = DuoTable.signmsg[counter]
+            }
+            game:GetService("ReplicatedStorage").Alright:FireServer(unpack(args))
+            if counter >= total_len then
+                dir = true
+            elseif counter <= 1 then
+                dir = false
+            end
+            if dir == true then
+                counter -= 1
+            else
+                counter += 1
+            end
+            wait(0.2)
+        end
     end
 end)
 
