@@ -254,7 +254,7 @@ end)
 
 spawn(function()
     while true do
-        wait(math.random(10,15))
+        wait(math.random(10,20))
         for _, v in ipairs(game.Players:GetPlayers()) do
             if v ~= game.Players.LocalPlayer then
                 game.Players.LocalPlayer:RevokeFriendship(v, v)
