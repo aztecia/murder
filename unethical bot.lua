@@ -170,6 +170,17 @@ local function hop()
     end
 end
 
+local function delayAndTeleport2()
+    local function teleport2()
+          hop()
+    end
+    local delayTime = 60 -- Adjust the delay time (in seconds) as needed
+    wait(delayTime)
+
+    teleport2()
+end
+
+coroutine.wrap(delayAndTeleport2)()
 
 --------------------------------------------------------------------------
 
@@ -257,15 +268,6 @@ task.spawn(function()
     end
 end)
 
-task.spawn(function()
-    while true do
-        wait(0.5)
-        numb = numb + 1
-        if numb == 120 then
-            pcall(hop)
-        end
-    end
-end)
 
 task.spawn(function()
     while true do
