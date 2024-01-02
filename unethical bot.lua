@@ -229,7 +229,7 @@ local autokillfling = function(Player, Delay)
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Heartbeat:connect(function()
-            Me.CFrame = CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5
+            Me.CFrame = CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(0)) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5
             LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
         end)
@@ -241,7 +241,7 @@ end
 --------------------------------------------------------------------------
 
 --[ Body Velocity ]--
-spawn(function()
+coroutine.wrap(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
             if v ~= game.Players.LocalPlayer then
@@ -250,37 +250,37 @@ spawn(function()
         end
         wait()
     end
-end)
+end)()
 
-spawn(function()
-    while true do
-        wait(math.random(10,20))
-        for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                game.Players.LocalPlayer:RevokeFriendship(v, v)
-            end
-        end
-    end
-end)
-
-spawn(function()
+coroutine.wrap(function()
     while true do
         wait()
         if #game.Players:GetPlayers() == 1 then
             pcall(ServerHop)
         end
     end
-end)
+end)()
 
-spawn(function()
+coroutine.wrap(function()
     while true do
         wait(0.5)
         numb = numb + 1
-        if numb == 180 then
+        if numb == 120 then
             pcall(hop)
         end
     end
-end)
+end)()
+
+coroutine.wrap(function()
+    while true do
+        wait(math.random(16.25))
+        for _, v in ipairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer then
+                game.Players.LocalPlayer:RevokeFriendship(v, v)
+            end
+        end
+    end
+end)()
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
