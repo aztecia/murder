@@ -1,9 +1,12 @@
--- [ bot made by krone and hate only nobody else ]
+-- [ bot made by krone and krone only nobody else ]
+-- [ only being krone works else you get logged xD ]
 -- [ anyone claiming they have the source is larp ]
 
 Players, RunService, HttpService, TPService = game:GetService("Players"), game:GetService("RunService"), game:GetService("HttpService"), game:GetService("TeleportService")
 
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
+
+
 
 --[ Tables ]--
 getgenv().DuoTable = {
@@ -24,7 +27,7 @@ getgenv().DuoTable = {
         "best botted server || krone",
         "i feel more superior when im in your server || krone",
         "bow down to me || krone",
-        "@drained.tk || krone",
+        "i hope you like the noise || krone",
     },
     both = {
         "best duo ngl || hate x krone",
@@ -80,63 +83,7 @@ getgenv().DuoTable = {
 }
 
 
-local a = game
-local b = a.Workspace
-local c = a.Lighting
-local d = b.Terrain
-d.WaterWaveSize = 0
-d.WaterWaveSpeed = 0
-d.WaterReflectance = 0
-d.WaterTransparency = 0
-c.GlobalShadows = false
-c.FogEnd = 9e9
-c.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for e, f in pairs(a:GetDescendants()) do
-   if f:IsA("Part") or f:IsA("Union") or f:IsA("CornerWedgePart") or f:IsA("TrussPart") then
-       f.Material = "Plastic"
-       f.Reflectance = 0
-   elseif f:IsA("Decal") or f:IsA("Texture") then
-       f.Transparency = 0
-   elseif f:IsA("ParticleEmitter") or f:IsA("Trail") then
-       f.Lifetime = NumberRange.new(0)
-   elseif f:IsA("Explosion") then
-       f.BlastPressure = 0
-       f.BlastRadius = 0
-   elseif f:IsA("Fire") or f:IsA("SpotLight") or f:IsA("Smoke") or f:IsA("Sparkles") then
-       f.Enabled = false
-   elseif f:IsA("MeshPart") then
-       f.Material = "Plastic"
-       f.Reflectance = 0
-       f.TextureID = 10385902758728957
-   end
-end
-for e, g in pairs(c:GetChildren()) do
-   if
-       g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or
-           g:IsA("DepthOfFieldEffect")
-    then
-       g.Enabled = false
-   end
-end
-sethiddenproperty(game.Lighting, "Technology", "Compatibility")
-wait(1)
-for i,v in next, workspace:GetDescendants() do
-if v:IsA("MeshPart") or v:IsA("UnionOperation") then
-sethiddenproperty(v, "RenderFidelity", "Automatic")
-end
-end
-wait(1)
-local timeBegan = tick()
-for i,v in ipairs(workspace:GetDescendants()) do
-if v:IsA("BasePart") then
-v.Material = "SmoothPlastic"
-end
-end
-for i,v in ipairs(game:GetService("Lighting"):GetChildren()) do
-v:Destroy()
-end
-wait(1)
+
 
 
 getgenv().rejoin = game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
@@ -267,20 +214,12 @@ coroutine.wrap(function()
 end)()
 
 --------------------------------------------------------------------------
-local numb = 0
-local speed = 0.5
-local radius = math.random(3,7) --- orbit size
-local eclipse = 1 --- width of orbit
-local rotation = CFrame.Angles(0, math.random(90,145), 0) --only works for unanchored parts (not localplayer)
-local sin, cos = math.sin, math.cos
-local rotspeed = math.pi * 2 / speed
-eclipse = eclipse * radius
-local rot = 0
---[ Fling Function ]--
+
 wait(1)
 
 local autokillfling = function(Player, Delay)
     pcall(function()
+    local radius = math.random(5,10) --- orbit size
         workspace['FallenPartsDestroyHeight'] = 0 / 0
         workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
         local Target = Player.Character.HumanoidRootPart
@@ -288,13 +227,16 @@ local autokillfling = function(Player, Delay)
         local LastCF = Me.CFrame
         local Delay = Delay or 1 / 5
         local Angle = 165
-        autokillfling = game:GetService('RunService').Stepped:connect(function(t, dt)
-            rot = rot + dt * rotspeed
-            Me.CFrame = rotation * CFrame.new(sin(rot) * eclipse, 0, cos(rot) * radius) + Target.Position
+        game.Players.LocalPlayer:RequestFriendship(Player, Player)
+        autokillfling = game:GetService('RunService').Heartbeat:connect(function()
+            Me.CFrame = CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5
+            LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
+            LocalPlayer.Character.Humanoid:ChangeState("Swimming")
+            LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+            LocalPlayer.Character.Humanoid:ChangeState("Freefall")
         end)
 
         wait(Delay)
-        LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
         autokillfling:Disconnect()
     end)
 end
@@ -303,10 +245,23 @@ end
 --[ Body Velocity ]--
 spawn(function()
     while true do
-        for _, v in pairs(game.Players:GetPlayers()) do
-            autokillfling(v, 2)
+        for _, v in ipairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer then
+                autokillfling(v, 5)
+            end
         end
         wait()
+    end
+end)
+
+spawn(function()
+    while true do
+        wait(math.random(10,15))
+        for _, v in ipairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer then
+                game.Players.LocalPlayer:RevokeFriendship(v, v)
+            end
+        end
     end
 end)
 
@@ -323,7 +278,7 @@ spawn(function()
     while true do
         wait(0.5)
         numb = numb + 1
-        if numb == 165 then
+        if numb == 180 then
             pcall(hop)
         end
     end
@@ -331,3 +286,5 @@ end)
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
+
+
