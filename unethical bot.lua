@@ -233,7 +233,6 @@ local autokillfling = function(Player, Delay)
             LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
             LocalPlayer.Character.Humanoid:ChangeState("Jumping")
-            LocalPlayer.Character.Humanoid:ChangeState("Freefall")
         end)
 
         wait(Delay)
