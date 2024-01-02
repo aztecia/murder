@@ -229,7 +229,7 @@ local autokillfling = function(Player, Delay)
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Heartbeat:connect(function()
-            Me.CFrame = CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(0)) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5
+            Me.CFrame = CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection
             LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
         end)
