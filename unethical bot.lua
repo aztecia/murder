@@ -232,7 +232,6 @@ local autokillfling = function(Player, Delay)
             Me.CFrame = CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5
             LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
-            LocalPlayer.Character.Humanoid:ChangeState("Jumping")
         end)
 
         wait(Delay)
