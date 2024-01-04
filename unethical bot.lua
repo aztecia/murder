@@ -422,7 +422,7 @@ task.spawn(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
             if v ~= game.Players.LocalPlayer then
-                autokillfling(v, 3)
+                autokillfling(v, 5)
             end
         end
         wait()
