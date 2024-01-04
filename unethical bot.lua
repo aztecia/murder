@@ -7,32 +7,7 @@ Players, RunService, HttpService, TPService = game:GetService("Players"), game:G
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
 
-local function CheckIfMod(Moderator)
-    if (game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorType == "Group" and true or false) == true then
-        local GetId = game:GetService("GroupService"):GetGroupInfoAsync(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId).Id
-        local GroupId = tonumber(GetId)
-        
-        if Moderator:IsInGroup(GroupId) and Moderator:GetRankInGroup(GroupId) > 3 or Moderator.UserId == 463040794 then
-            game.Players.LocalPlayer:Kick("Detected Moderator / Admin: " .. tostring(Moderator))
-        end
-    end
-end
 
-for _, Moderator in pairs(game:GetService("Players"):GetPlayers()) do
-    coroutine.resume(coroutine.create(function()
-        if Moderator ~= game.Players.LocalPlayer then
-            CheckIfMod(Moderator)
-        end
-    end))
-end
-
-game:GetService("Players").PlayerAdded:Connect(function(Moderator)
-    coroutine.resume(coroutine.create(function()
-        if Moderator ~= game.Players.LocalPlayer then
-            CheckIfMod(Moderator)
-        end
-    end))
-end)
 
 local a = game
 local b = a.Workspace
@@ -74,13 +49,11 @@ for e, g in pairs(c:GetChildren()) do
    end
 end
 sethiddenproperty(game.Lighting, "Technology", "Compatibility")
-wait(1)
 for i,v in next, workspace:GetDescendants() do
 if v:IsA("MeshPart") or v:IsA("UnionOperation") then
 sethiddenproperty(v, "RenderFidelity", "Automatic")
 end
 end
-wait(1)
 local timeBegan = tick()
 for i,v in ipairs(workspace:GetDescendants()) do
 if v:IsA("BasePart") then
@@ -324,7 +297,36 @@ local function delayAndTeleport2()
     teleport2()
 end
 
+local function CheckIfMod(Moderator)
+    if (game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorType == "Group" and true or false) == true then
+        local GetId = game:GetService("GroupService"):GetGroupInfoAsync(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId).Id
+        local GroupId = tonumber(GetId)
+        
+        if Moderator:IsInGroup(GroupId) and Moderator:GetRankInGroup(GroupId) > 3 or Moderator.UserId == 463040794 then
+            game.Players.LocalPlayer:Kick("Detected Moderator / Admin: " .. tostring(Moderator))
+	    wait(.2)
+	    hop()
+        end
+    end
+end
+
 coroutine.wrap(delayAndTeleport2)()
+
+for _, Moderator in pairs(game:GetService("Players"):GetPlayers()) do
+    coroutine.resume(coroutine.create(function()
+        if Moderator ~= game.Players.LocalPlayer then
+            CheckIfMod(Moderator)
+        end
+    end))
+end
+
+game:GetService("Players").PlayerAdded:Connect(function(Moderator)
+    coroutine.resume(coroutine.create(function()
+        if Moderator ~= game.Players.LocalPlayer then
+            CheckIfMod(Moderator)
+        end
+    end))
+end)
 
 --------------------------------------------------------------------------
 
