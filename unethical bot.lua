@@ -87,7 +87,6 @@ getgenv().DuoTable = {
         "best botted server || hate",
         "im sooo much better than you || hate",
         "Hi everyone || hate",
-        "@hatetoseeyouleave || hate",
         "dollhouse kids crying over a bot 💤 || hate",
         "im really just hoping everything is bad for yall man || hate",
         "come cry in the server bout how the bot is upsetting u 😢😢 || hate",
