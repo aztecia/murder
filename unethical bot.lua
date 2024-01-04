@@ -68,7 +68,7 @@ local function delayAndTeleport()
     local function teleport()
           game:GetService("TeleportService"):Teleport(game.PlaceId)
     end
-    local delayTime = 90 -- Adjust the delay time (in seconds) as needed
+    local delayTime = 120 -- Adjust the delay time (in seconds) as needed
     wait(delayTime)
 
     teleport()
@@ -290,7 +290,7 @@ local function delayAndTeleport2()
     local function teleport2()
           hop()
     end
-    local delayTime = 60 -- Adjust the delay time (in seconds) as needed
+    local delayTime = 90 -- Adjust the delay time (in seconds) as needed
     wait(delayTime)
 
     teleport2()
