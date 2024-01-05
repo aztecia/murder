@@ -1,12 +1,55 @@
 -- [ bot made by krone and krone only nobody else ]
--- [ only being krone works else you get logged xD ]
--- [ anyone claiming they have the source is larp ]
 
 Players, RunService, HttpService, TPService = game:GetService("Players"), game:GetService("RunService"), game:GetService("HttpService"), game:GetService("TeleportService")
 
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/AnthonyIsntHere/anthonysrepository/main/scripts/AntiChatLogger.lua", true))()
+wait(1)
+local Protected_Instances = {}
+
+local ProtectHook; ProtectHook = hookmetamethod(game, "__namecall", function(self, ...)
+    if table.find(Protected_Instances, self) and not checkcaller() then
+        return nil
+    end
+    
+    return ProtectHook(self, ...)
+end)
+
+local ClassNameHook; ClassNameHook = hookmetamethod(game, "__index", function(self, index)
+    if index == "ClassName" and table.find(Protected_Instances, self) and not checkcaller() then
+        return nil
+    end
+
+    return ClassNameHook(self, index)
+end)
+
+local InstanceHook; InstanceHook = hookfunction(Instance.new, function(...)
+    local Arguments = {...}
+
+    if checkcaller() and Arguments[1] then
+        local CurrentInst = InstanceHook(...)
+        table.insert(Protected_Instances, CurrentInst)
+        return CurrentInst
+    end
+
+    return InstanceHook(...)
+end)
+wait(1)
+local MetamethodHolder = {
+    AntiFlag = nil
+}
+
+MetamethodHolder.AntiFlag = hookmetamethod(game, "__namecall", function(self, ...)
+    local Method = getnamecallmethod()
+    if tostring(Method) == "PreloadAsync" and not checkcaller() then
+        return
+    end    
+   
+    return MetamethodHolder.AntiFlag(self, ...)    
+end)
+wait(1)
 
 
 local a = game
@@ -396,8 +439,7 @@ local autokillfling = function(Player, Delay)
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Stepped:connect(function()
-            tp(CFrame.new(Target.Position) * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(math.random(0, 360)))
-* CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5, 0.06)
+            tp(CFrame.new(Target.Position) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5, 0.06)
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
         end)
 
@@ -423,7 +465,7 @@ task.spawn(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
             if v ~= game.Players.LocalPlayer then
-                autokillfling(v, 3.5)
+                autokillfling(v, 5)
             end
         end
         wait()
