@@ -355,6 +355,7 @@ end
 
 coroutine.wrap(delayAndTeleport2)()
 
+--[[
 for _, Moderator in pairs(game:GetService("Players"):GetPlayers()) do
     coroutine.resume(coroutine.create(function()
         if Moderator ~= game.Players.LocalPlayer then
@@ -370,7 +371,7 @@ game:GetService("Players").PlayerAdded:Connect(function(Moderator)
         end
     end))
 end)
-
+]]--
 local function tp(cframe, speed)
     local tween = game:GetService("TweenService")
     tween:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(speed, Enum.EasingStyle.Linear), { CFrame = cframe }):Play()
