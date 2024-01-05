@@ -134,7 +134,8 @@ getgenv().DuoTable = {
         "im really just hoping everything is bad for yall man || hate",
         "come cry in the server bout how the bot is upsetting u 😢😢 || hate",
         "bums 😭 || hate",
-        "whats the point of banning me when i can js come back || hate"
+        "whats the point of banning me when i can js come back || hate",
+	"unban @hatetoseeyouleave || hate",
     },
     krone = {
         "best source known to man || krοne",
