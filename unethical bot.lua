@@ -449,11 +449,10 @@ local autokillfling = function(Player, Delay)
         autokillfling:Disconnect()
     end)
 end
---[[
+
 local BV = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
-BV.Velocity = Vector3.new(-9e99, 9e99, -9e99)
+BV.Velocity = Vector3.new(-9e9, 9e9, -9e9)
 BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
-]]
 --------------------------------------------------------------------------
 
 --[ Body Velocity ]--
