@@ -122,7 +122,7 @@ coroutine.wrap(delayAndTeleport)()
 --[ Tables ]--
 getgenv().DuoTable = {
     server = {
-        "/Іnsist",
+        "/shhh",
     },
     hate = {
         "i hate you || hate",
