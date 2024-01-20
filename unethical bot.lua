@@ -4,39 +4,6 @@ Players, RunService, HttpService, TPService = game:GetService("Players"), game:G
 
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/AnthonyIsntHere/anthonysrepository/main/scripts/AntiChatLogger.lua", true))()
-wait(1)
-local Protected_Instances = {}
-
-local ProtectHook; ProtectHook = hookmetamethod(game, "__namecall", function(self, ...)
-    if table.find(Protected_Instances, self) and not checkcaller() then
-        return nil
-    end
-    
-    return ProtectHook(self, ...)
-end)
-
-local ClassNameHook; ClassNameHook = hookmetamethod(game, "__index", function(self, index)
-    if index == "ClassName" and table.find(Protected_Instances, self) and not checkcaller() then
-        return nil
-    end
-
-    return ClassNameHook(self, index)
-end)
-
-local InstanceHook; InstanceHook = hookfunction(Instance.new, function(...)
-    local Arguments = {...}
-
-    if checkcaller() and Arguments[1] then
-        local CurrentInst = InstanceHook(...)
-        table.insert(Protected_Instances, CurrentInst)
-        return CurrentInst
-    end
-
-    return InstanceHook(...)
-end)
-wait(1)
 local MetamethodHolder = {
     AntiFlag = nil
 }
