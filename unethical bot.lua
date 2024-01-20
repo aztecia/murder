@@ -443,8 +443,6 @@ local autokillfling = function(Player, Delay)
         autokillfling = game:GetService('RunService').Stepped:connect(function()
             tp(CFrame.new(Target.Position) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5, 0.06)
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
-
-	    game.Players.LocalPlayer.Character.Humanoid.RootPart.RotVelocity = Vector3.new(-9e9,9e9,-9e9)
         end)
 
         wait(Delay)
