@@ -138,25 +138,25 @@ getgenv().DuoTable = {
 	"unban @hatetoseeyouleave || hate",
     },
     krone = {
-        "best source known to man || krone",
-        "i know you're upset at me || krone",
-        "i hope you fail at going up in life || krone",
-        "best botted server || krone",
-        "i feel more superior when im in your server || krone",
-        "bow down to me || krone",
-        "i hope you like the noise || krone",
-	"dollhouse and keystone filled with corny newgens is insane | krone",
-	"u guys really are losers | krone",
-	"go outside | krone",
-	"BOOO 👻👻👻 DOLLHOUSIANS AND KEYSTONERS.. OOO IM A JOB APPLICATIONNNN | krone",
-	"cry harder | krone",
-	"braden keep crying we flood ur game | krone",
+        "best source known to man || fault",
+        "i know you're upset at me || fault",
+        "i hope you fail at going up in life || fault",
+        "best botted server || fault",
+        "i feel more superior when im in your server || fault",
+        "bow down to me || fault",
+        "i hope you like the noise || fault",
+	"dollhouse and keystone filled with corny newgens is insane | fault",
+	"u guys really are losers | fault",
+	"go outside | fault",
+	"BOOO 👻👻👻 DOLLHOUSIANS AND KEYSTONERS.. OOO IM A JOB APPLICATIONNNN | fault",
+	"cry harder | fault",
+	"braden keep crying we flood ur game | fault",
 
     },
     both = {
-        "best duo ngl || hate x krone",
-        "nobody can stop us || krone x hate",
-        "its our time now || krone x hate",
+        "best duo ngl || hate x fault",
+        "nobody can stop us || fault x hate",
+        "its our time now || fault x hate",
     },
     songTable = {
       "hillmurder - nine w/ @s6erpent #xp",
@@ -443,12 +443,19 @@ local autokillfling = function(Player, Delay)
         autokillfling = game:GetService('RunService').Stepped:connect(function()
             tp(CFrame.new(Target.Position) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5, 0.06)
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
+
+	    game.Players.LocalPlayer.Character.Humanoid.RootPart.RotVelocity = Vector3.new(-9e9,9e9,-9e9)
         end)
 
         wait(Delay)
         autokillfling:Disconnect()
     end)
 end
+
+local BV = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+BV.Velocity = Vector3.new(-9e99, 9e99, -9e99)
+BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
+
 --------------------------------------------------------------------------
 
 --[ Body Velocity ]--
