@@ -1,22 +1,24 @@
 -- [ bot made by krone and krone only nobody else ]
+-- [ only being krone works else you get logged xD ]
+-- [ anyone claiming they have the source is larp ]
 
 Players, RunService, HttpService, TPService = game:GetService("Players"), game:GetService("RunService"), game:GetService("HttpService"), game:GetService("TeleportService")
 
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
-local MetamethodHolder = {
-    AntiFlag = nil
-}
 
-MetamethodHolder.AntiFlag = hookmetamethod(game, "__namecall", function(self, ...)
-    local Method = getnamecallmethod()
-    if tostring(Method) == "PreloadAsync" and not checkcaller() then
-        return
-    end    
-   
-    return MetamethodHolder.AntiFlag(self, ...)    
-end)
-wait(1)
+local function RemoveGuis()
+    for i, object in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+        object:Destroy()
+    end
+end; pcall(RemoveGuis)
+
+networkClient:SetOutgoingKBPSLimit(0)
+workspace.Terrain:Clear()
+for i, object in pairs(game.Lighting:GetChildren()) do
+    object:Destroy()
+end
+LocalPlayer.CharacterAdded:Connect(function() task.wait(1); pcall(RemoveGuis) end)
 
 
 local a = game
@@ -50,28 +52,29 @@ for e, f in pairs(a:GetDescendants()) do
        f.TextureID = 10385902758728957
    end
 end
+
 for e, g in pairs(c:GetChildren()) do
-   if
-       g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or
-           g:IsA("DepthOfFieldEffect")
-    then
+   if g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or g:IsA("DepthOfFieldEffect") then
        g.Enabled = false
    end
 end
+
 sethiddenproperty(game.Lighting, "Technology", "Compatibility")
+
 for i,v in next, workspace:GetDescendants() do
-if v:IsA("MeshPart") or v:IsA("UnionOperation") then
-sethiddenproperty(v, "RenderFidelity", "Automatic")
+    if v:IsA("MeshPart") or v:IsA("UnionOperation") then
+        sethiddenproperty(v, "RenderFidelity", "Automatic")
+    end
 end
-end
+
 local timeBegan = tick()
 for i,v in ipairs(workspace:GetDescendants()) do
-if v:IsA("BasePart") then
-v.Material = "SmoothPlastic"
-end
+    if v:IsA("BasePart") then
+        v.Material = "SmoothPlastic"
+    end
 end
 for i,v in ipairs(game:GetService("Lighting"):GetChildren()) do
-v:Destroy()
+    v:Destroy()
 end
 
 local function delayAndTeleport()
@@ -97,33 +100,32 @@ getgenv().DuoTable = {
         "best botted server || hate",
         "im sooo much better than you || hate",
         "Hi everyone || hate",
-        "dollhouse and keystone kids crying over a bot 💤 || hate",
+        "dollhouse kids crying over a bot 💤 || hate",
         "im really just hoping everything is bad for yall man || hate",
         "come cry in the server bout how the bot is upsetting u 😢😢 || hate",
         "bums 😭 || hate",
-        "whats the point of banning me when i can js come back || hate",
-	"unban @hatetoseeyouleave || hate",
+        "whats the point of banning me when i can js come back || hate"
     },
     krone = {
-        "best source known to man || fault",
-        "i know you're upset at me || fault",
-        "i hope you fail at going up in life || fault",
-        "best botted server || fault",
-        "i feel more superior when im in your server || fault",
-        "bow down to me || fault",
-        "i hope you like the noise || fault",
-	"dollhouse and keystone filled with corny newgens is insane | fault",
-	"u guys really are losers | fault",
-	"go outside | fault",
-	"BOOO 👻👻👻 DOLLHOUSIANS AND KEYSTONERS.. OOO IM A JOB APPLICATIONNNN | fault",
-	"cry harder | fault",
-	"braden keep crying we flood ur game | fault",
-
+        "best source known to man || krоne",
+        "i know you're upset at me || krоne",
+        "i hope you fail at going up in life || krоne",
+        "best botted server || krоne",
+        "i feel more superior when im in your server || krоne",
+        "bow down to me || krоne",
+        "i hope you like the noise || krоne",
+    	"dollhouse filled with corny newgens is insane | krоne",
+    	"u guys really are losers | krоne",
+    	"go outside | krоne",
+    	"BOOO 👻👻👻 DOLLHOUSIANS.. OOO IM A JOB APPLICATIONNNN | krоne",
+    	"cry harder | krоne",
+    	"braden keep crying we flood ur game | krоne",
+    
     },
     both = {
-        "best duo ngl || hate x fault",
-        "nobody can stop us || fault x hate",
-        "its our time now || fault x hate",
+        "best duo ngl || hate x krоne",
+        "nobody can stop us || krоne x hate",
+        "its our time now || krоne x hate",
     },
     songTable = {
       "hillmurder - nine w/ @s6erpent #xp",
@@ -301,12 +303,14 @@ local function delayAndTeleport2()
     local function teleport2()
           hop()
     end
-    local delayTime = 90 -- Adjust the delay time (in seconds) as needed
+    local delayTime = 120 -- Adjust the delay time (in seconds) as needed
     wait(delayTime)
 
     teleport2()
 end
+coroutine.wrap(delayAndTeleport2)()
 
+--[[
 local function CheckIfMod(Moderator)
     if (game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorType == "Group" and true or false) == true then
         local GetId = game:GetService("GroupService"):GetGroupInfoAsync(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId).Id
@@ -320,9 +324,6 @@ local function CheckIfMod(Moderator)
     end
 end
 
-coroutine.wrap(delayAndTeleport2)()
-
---[[
 for _, Moderator in pairs(game:GetService("Players"):GetPlayers()) do
     coroutine.resume(coroutine.create(function()
         if Moderator ~= game.Players.LocalPlayer then
@@ -330,6 +331,7 @@ for _, Moderator in pairs(game:GetService("Players"):GetPlayers()) do
         end
     end))
 end
+]]--
 
 game:GetService("Players").PlayerAdded:Connect(function(Moderator)
     coroutine.resume(coroutine.create(function()
@@ -338,7 +340,7 @@ game:GetService("Players").PlayerAdded:Connect(function(Moderator)
         end
     end))
 end)
-]]--
+
 local function tp(cframe, speed)
     local tween = game:GetService("TweenService")
     tween:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(speed, Enum.EasingStyle.Linear), { CFrame = cframe }):Play()
@@ -394,52 +396,85 @@ end)()
 
 --------------------------------------------------------------------------
 
-wait(1)
+-------------------
 
-local autokillfling = function(Player, Delay)
-    pcall(function()
-    local radius = math.random(5,10) --- orbit size
-        workspace['FallenPartsDestroyHeight'] = 0 / 0
-        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
-        local Target = Player.Character.HumanoidRootPart
-        local Me = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local LastCF = Me.CFrame
-        local Delay = Delay or 1 / 5
-        local Angle = 165
-        game.Players.LocalPlayer:RequestFriendship(Player, Player)
-        autokillfling = game:GetService('RunService').Stepped:connect(function()
-            tp(CFrame.new(Target.Position) * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5, 0.06)
-            LocalPlayer.Character.Humanoid:ChangeState("Swimming")
-        end)
+function Flinger()
+spawn(function()
+    while task.wait(5) do
+        if #game.Players:GetPlayers() <= 2 then
+            hop()
+        end
+    end
+end)
+        
+spawn(function()
+    while task.wait() do
+	game.Players.LocalPlayer.Character.Humanoid:ChangeState("Swimming")
+        if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Sit == true then
+            spawn(function()
+                LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+            end)
+            spawn(function()
+                LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Sit = false
+            end)
+        end
+    end
+end)
 
-        wait(Delay)
-        autokillfling:Disconnect()
+spawn(function()
+        while wait() do
+            pcall(function()
+                for index, plr in pairs(game.Players:GetPlayers()) do
+                   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false then
+                        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+                        local tchar = plr.Character
+                        if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
+                            local HRP = character:FindFirstChild("HumanoidRootPart")
+                            local Flinging = nil
+                            local noclipping = nil
+                            
+                            function fling(base1, base2, multiplier)
+                                base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
+                                base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
+                                base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
+                            end
+                            
+                            local function a1()
+                                fling(HRP, tchar.HumanoidRootPart, 6)
+                                RunService.Stepped:Wait()
+                                fling(HRP, tchar.HumanoidRootPart, 1)
+                                RunService.Stepped:Wait()
+                                fling(HRP, tchar.HumanoidRootPart, 8)
+                            end
+                            Flinging = RunService.RenderStepped:Connect(a1)
+                            local function a2()
+                                for i,v in next, character:GetChildren() do
+                                    if v:IsA('BasePart') then
+                                        v.CanCollide = false
+                                    end
+                                end
+                            end
+                            noclipping = RunService.Stepped:Connect(a2)
+                            
+                            local BV = Instance.new("BodyVelocity")
+                            BV.Parent = HRP
+                            BV.Velocity = Vector3.new(0,0,0)
+                            BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+                            
+                            wait(.7)
+                            character.Humanoid:ChangeState("GettingUp")
+                            Flinging:Disconnect()
+                            noclipping:Disconnect()
+                        end
+                    end
+                end
+            end)
+        end
     end)
+    wait(90)
+    hop()
 end
---------------------------------------------------------------------------
-
---[ Body Velocity ]--
-
-task.spawn(function()
-    while true do
-        wait()
-        if #game.Players:GetPlayers() == 1 then
-            pcall(ServerHop)
-        end
-    end
-end)
-
-
-task.spawn(function()
-    while true do
-        for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                autokillfling(v, 5)
-            end
-        end
-        wait()
-    end
-end)
+coroutine.wrap(Flinger)()
 
 spawn(function()
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Sign") then
@@ -481,5 +516,3 @@ end)
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
-
-
