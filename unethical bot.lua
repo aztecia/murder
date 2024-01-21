@@ -13,7 +13,6 @@ local function RemoveGuis()
     end
 end; pcall(RemoveGuis)
 
-game:GetService("NetworkClient"):SetOutgoingKBPSLimit(0)
 workspace.Terrain:Clear()
 for i, object in pairs(game.Lighting:GetChildren()) do
     object:Destroy()
