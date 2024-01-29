@@ -1,13 +1,10 @@
--- [ bot made by fault and fault only nobody else ]
--- [ only being fault works else you get logged xD ]
--- [ anyone claiming they have the source is larp ]
 
-Players, RunService, HttpService, TPService = game:GetService("Players"), game:GetService("RunService"), game:GetService("HttpService"), game:GetService("TeleportService")
-
-LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
-
+workspace["FallenPartsDestroyHeight"] = 0/0
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+--[[
 local function RemoveGuis()
-    for i, object in pairs(LocalPlayer.PlayerGui:GetChildren()) do
+    for i, object in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
         object:Destroy()
     end
 end; pcall(RemoveGuis)
@@ -16,8 +13,8 @@ workspace.Terrain:Clear()
 for i, object in pairs(game.Lighting:GetChildren()) do
     object:Destroy()
 end
-LocalPlayer.CharacterAdded:Connect(function() task.wait(1); pcall(RemoveGuis) end)
-
+game.Players.LocalPlayer.CharacterAdded:Connect(function() task.wait(1); pcall(RemoveGuis) end)
+]]--
 
 local a = game
 local b = a.Workspace
@@ -75,44 +72,60 @@ for i,v in ipairs(game:GetService("Lighting"):GetChildren()) do
     v:Destroy()
 end
 
-local function delayAndTeleport()
-    local function teleport()
-          game:GetService("TeleportService"):Teleport(game.PlaceId)
-    end
-    local delayTime = 120 -- Adjust the delay time (in seconds) as needed
-    wait(delayTime)
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Sign") then
+    game.Players.LocalPlayer.Backpack.Sign.Parent = game.Players.LocalPlayer.Character
+    wait(1)
+    local args = {
+        [1] = "text",
+        [2] = "join /shhh\n come join, i wanna tell you there..\n"
+    }
 
-    teleport()
+    game:GetService("ReplicatedStorage").Alright:FireServer(unpack(args))
+end
+wait(.1)
+game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+
+-- inject anti lag scripts before starting
+
+
+---[[ start ]]--
+-- Function to send a chat message
+local Chat = function(Input)
+	game:GetService("ReplicatedStorage")["DefaultChatSystemChatEvents"]["SayMessageRequest"]:FireServer(Input, "All")
 end
 
-coroutine.wrap(delayAndTeleport)()
+for i,v in next, workspace:GetDescendants() do
+    if v:IsA'Seat' then
+        v:Destroy()
+    end
+end
 
+--[[
+local Remotes = {
+    game:GetService("ReplicatedStorage").GiveBox,
+    game:GetService("ReplicatedStorage").GiveCat
+}
+]]--
 
---[ Tables ]--
-getgenv().DuoTable = {
-    server = {
-        "/shhh",
+local ChatLists = {
+    ServerVanity = {
+        "/Shhh"
     },
-    hate = {
-        "i hate you || hate",
-        "ngl hope yall break a leg or just have a bad day || hate",
-        "best botted server || hate",
-        "im sooo much better than you || hate",
-        "Hi everyone || hate",
+    greetTable = {
+        "hi",
+        "hello",
+        "greetings",
+        "bonjour",
+        "hola",
+        "hey",
     },
-    fault = {
-        "AHHHHH I HATE YOU!!! || 😅",
-        "ITS YOUR FAULT STOP IT NOW OH MY GOD || 😅",
-        "YOU WILL NEVER TAKE ME ALIVE!!!!! || 😅",
-        "I HATE YOU AGHHH I HATE YOU I HATE YOU I HATE YOU I HATE YOU || 😅",
-        "YOUR THE REASON IM LIKE THIS || 😅",
-        "GET AWAY FROM ME RIGHT NOW!!!! || 😅",
-        "OH MY GODDDDDDD YOU DID THIS YOU ARE THE REASON IM LIKE THIS ILL NEVER BE THE SAME AGAIN || 😅",
-    },
-    both = {
-        "best duo ngl || hate x fault",
-        "nobody can stop us || fault x hate",
-        "its our time now || fault x hate",
+    socialmanipulationTable = {
+        "i heard something bad abour you. very bad.",
+        "i have a secret.",
+        "someone was talking about you.",
+        "why did you do that to that person",
+        "ur so weird for what you did bro.",
+        "a little birdie told me something about you",
     },
     songTable = {
       "hillmurder - nine w/ @s6erpent #xp",
@@ -142,12 +155,13 @@ getgenv().DuoTable = {
       "bloody! - alignment",
       "emiii - buford freestyle (rare)",
       "eddyoetty - growup",
+      "percizeshwty - #stopstealingswag",
       "onlinegraves - wrong turn",
       "islurwhenitalk - fed up",
       "bloody! - i like money",
       "hillmurder - ion fold #xp",
       "yuuki - night fall plague (rare)",
-      "ksuuvi - at the backhouse",
+      "ksuuvi - at/@ the backhouse",
       "korosu #k2 - deadline",
       "sublimits - geeked out my mind",
       "tenkay - never put my faith in her",
@@ -159,107 +173,10 @@ getgenv().DuoTable = {
       "lucifer - SOULFUL *REMIX*",
       "kursses - LAIT! #fantasia",
       "forevermore - my words never heard"
-    },
-    signmsg = {
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "j",
-      "jo",
-      "joi",
-      "join",
-      "join ",
-      "join /",
-      "join /s",
-      "join /sh",
-      "join /shh",
-      "join /shhh",
-      "join /shhh",
-      "join /shhh",
-      "join /shhh",
-      "join /shhh lol",
-      "join /shhh lol",
-      "join /shhh",
-      "join /shhh",
-      "join /shh",
-      "join /sh",
-      "join /s",
-      "join /s",
-      "join /s",
-      "join ",
-      "join",
-      "joi",
-      "jo",
-      "j",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
     }
 }
 
 
-
-
-
-getgenv().rejoin = game:GetService("CoreGui").RobloxPromptGui.promptOverlay.ChildAdded:Connect(function(child)
-    if child.Name == 'ErrorPrompt' and child:FindFirstChild('MessageArea') and child.MessageArea:FindFirstChild("ErrorFrame") then
-        game:GetService("TeleportService"):Teleport(game.PlaceId)
-    end
-end)
-
-game:GetService("Players").LocalPlayer.Idled:connect(function()
-    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-    wait(1)
-    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-end)
-
-
---------------------------------------
------[ Code ]-----
---------------------------------------------------------------------------
---[ Night Time ]--
-game:GetService("Lighting").ClockTime = 0
---------------------------------------------------------------------------
-
---[ FallenParts Height Destroy ]--
-workspace['FallenPartsDestroyHeight'] = 0 / 0
-
-task.spawn(function()
-    while wait() do
-        if LocalPlayer.CharacterAdded then
-            LocalPlayer.CharacterAdded:wait()
-            wait(1)
-            workspace['FallenPartsDestroyHeight'] = 0 / 0
-        end
-    end
-end)
-
-for i,v in next, workspace:GetDescendants() do
-    if v:IsA'Seat' then
-	    v.Disabled = true
-    end
-end
---------------------------------------------------------------------------
-
---[ Table Checks ]--
-
---------------------------------------------------------------------------
-
---------------------------------------------------------------------------
-
---[ ServerHop Function ]--
 local function ServerHop()
     local success, response = pcall(function()
         return game:GetService("HttpService"):JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
@@ -292,177 +209,167 @@ local function hop()
 end
 
 
---------------------------------------------------------------------------
+-- List of wave animations
+local r15Hi = {507770239}
+local r6Hi = {128777973}
 
---[ funky ]--
-animations = {3333499508; 3695333486; 3333136415; 3338042785; 4940561610; 4940564896; 4841399916; 4641985101; 4555782893; 4265725525; 3338097973; 3333432454; 3333387824; 4406555273; 4212455378; 4049037604; 3695300085; 3695322025; 5915648917; 5915714366; 5918726674; 5917459365; 5915712534; 5915713518; 5937558680; 5918728267; 5937560570; 507776043; 507777268; 507771019}
+-- Function to play a random wave animation
+local function playRandomWaveAnimation()
+    local r15wave = r15Hi[math.random(1, #r15Hi)]
+    local r6wave = r6Hi[math.random(1, #r6Hi)]
 
-local randomdance = animations[math.random(1, #animations)];
+    local WaveAnim = Instance.new("Animation")
 
-local WaveAnim = Instance.new("Animation")
-WaveAnim.AnimationId = "rbxassetid://" .. tostring(randomdance)
-local wave;
-PlayWaveAnim = function()
-    wave = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(WaveAnim)
+    if game:GetService("Players").LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
+        WaveAnim.AnimationId = "rbxassetid://"..tostring(r15wave)
+    else
+        WaveAnim.AnimationId = "rbxassetid://"..tostring(r6wave)
+    end
+
+    local wave = game.Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(WaveAnim)
     wave:Play(1, 5, 1)
+    wait(1)
+    wave:Stop()
 end
-PlayWaveAnim()
 
-if game.Players.LocalPlayer.Character.Humanoid.RigType == Enum.HumanoidRigType.R15 then
-    coroutine.wrap(function()
-        while wait() do
-            if game.Players.LocalPlayer.CharacterAdded then
-                game.Players.LocalPlayer.CharacterAdded:wait()
-                wait(1)
-                PlayWaveAnim()
-            end
+coroutine.wrap(function()
+    while true do
+        for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+            pcall(function()
+                if v:IsA("BasePart") then
+                    v.CanCollide = false
+                end
+            end)
         end
-    end)()
-end
---------------------------------------------------------------------------
+        game.Players.LocalPlayer.Character:findFirstChildOfClass("Humanoid"):ChangeState(11)
+        wait()
+    end
+end)()
 
---[ Chat System ]--
-local function Chat(msg)
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
-end
 
 --[[
-
 coroutine.wrap(function()
     while true do
-        wait(0.5)
-        local random_numbers = math.random(1,3)
-        if random_numbers == 1 then
-            Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.hate[math.random(1, (#DuoTable.hate))])
-        elseif random_numbers == 2 then
-            Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.fault[math.random(1, (#DuoTable.fault))])
-        else
-            Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.both[math.random(1, (#DuoTable.both))])
+        if game.Players.LocalPlayer and game.Players.LocalPlayer.Character then
+            local character = game.Players.LocalPlayer.Character
+            local backpack = game.Players.LocalPlayer.Backpack
+
+            if character and backpack then
+                for _, tool in pairs(character:GetChildren()) do
+                    if tool:IsA("Tool") then
+                        tool.Parent = backpack
+                    end
+                end
+            end
         end
+
+        wait(1) -- Adjust the wait time as needed
     end
 end)()
-
 ]]--
-
 coroutine.wrap(function()
     while true do
-        wait(0.5)
-        -- //   local random_numbers = math.random(1,3)
-        Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.fault[math.random(1, (#DuoTable.fault))])
+        if game.Players.LocalPlayer then
+            game.Players.LocalPlayer.Character:WaitForChild("Humanoid").AncestryChanged:Connect(function(_, parent)
+                    if not parent then
+                        while wait(1) do
+                            if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position.Y < -50 then
+                                    local spawnPoints = workspace:FindPartsInRegion3(workspace:WaitForChild("SpawnPoints").SpawnRegion, nil, math.huge)
+                                    if #spawnPoints > 0 then
+                                        game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(spawnPoints[math.random(1, #spawnPoints)].Position + Vector3.new(0, 5, 0))
+                                    else
+                                        warn("No SpawnPoints found in the workspace.")
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end)
+            end
+        wait(10)
     end
 end)()
---------------------------------------------------------------------------
 
-wait(1)
-local function tp(cframe, speed)
-    local tween = game:GetService("TweenService")
-    tween:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(speed, Enum.EasingStyle.Linear), { CFrame = cframe }):Play()
-end
-local numb = 0
-local speed = 0.5
-local radius = math.random(3,7) --- orbit size
-local eclipse = 1 --- width of orbit
-local rotation = CFrame.Angles(0, math.random(90,145), 0) --only works for unanchored parts (not localplayer)
-local sin, cos = math.sin, math.cos
-local rotspeed = math.pi * 2 / speed
-eclipse = eclipse * radius
-local rot = 0
---[ Fling Function ]--
-wait(1)
+for _, targetPlayer in pairs(game.Players:GetPlayers()) do
+    if targetPlayer ~= game.Players.LocalPlayer and targetPlayer.Character then
+        local character = targetPlayer.Character
+        local humanoid = character:FindFirstChild("Humanoid")
+        local drain = false
 
-local autokillfling = function(Player, Delay)
-    pcall(function()
-        workspace['FallenPartsDestroyHeight'] = 0 / 0
-        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
-        local Target = Player.Character.HumanoidRootPart
-        local Me = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local LastCF = Me.CFrame
-        local Delay = Delay or 1 / 5
-        local Angle = 165
-        autokillfling = game:GetService('RunService').Stepped:connect(function(t, dt)
-            rot = rot + dt * rotspeed
-            Me.CFrame = rotation * CFrame.new(sin(rot) * eclipse, 0, cos(rot) * radius) + Target.Position
-            LocalPlayer.Character.Humanoid:ChangeState("Swimming")
-        end)
-
-        wait(Delay)
-        LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
-        autokillfling:Disconnect()
-    end)
-end
---------------------------------------------------------------------------
-
---[ Body Velocity ]--
-spawn(function()
-    while true do
-        for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                autokillfling(v, 3)
-            end
-        end
+        -- Teleport 10 studs away from the target player
+        local teleportPosition = character.HumanoidRootPart.Position + Vector3.new(20, 5, 0)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(teleportPosition)
         wait()
-    end
-end)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, character.HumanoidRootPart.Position)
+        Chat("HEY! WAIT FOR ME " .. targetPlayer.DisplayName .. " ")
+        wait(1)
+        -- Create a path to the target player
+        local pathfindingService = game:GetService("PathfindingService")
+        local path = pathfindingService:CreatePath({
+            AgentRadius = 2,
+            AgentHeight = 5,
+            AgentCanJump = true,
+            AgentJumpHeight = 10,
+            AgentMaxSlope = 45,
+            AgentMaxDropDown = 5,
+            AgentMaxClamp = 10,
+            AgentMaxSprintSlope = 20,
+            AgentSlopeSlide = true,
+            AgentFallTime = 0.1,
+            AgentMaxSprintAngle = 1,
+            AgentStepHeight = 0.5,
+            AgentJumpMagnitude = 1,
+            AgentWalkSpeed = 16,
+            AgentSprintSpeed = 32,
+            AgentSprintDuration = 1,
+            AgentSprintAcceleration = 4,
+            AgentHumanoid = game.Players.LocalPlayer.Character.Humanoid,
+            AgentRootRigidity = 0,
+            AgentWeightShift = 4,
+            AgentCollisionRadiusOffset = 2,
+            AgentCollisionRadius = 2
+        })
 
-spawn(function()
-if game.Players.LocalPlayer.Backpack:FindFirstChild("Sign") then
-    game.Players.LocalPlayer.Backpack.Sign.Parent = game.Players.LocalPlayer.Character
-        local counter = 1
-        local total_len = #DuoTable.signmsg
-        local dir = false
-        while true do
-            local args = {
-                [1] = "text",
-                [2] = DuoTable.signmsg[counter]
-            }
-            game:GetService("ReplicatedStorage").Alright:FireServer(unpack(args))
-            if counter >= total_len then
-                dir = true
-            elseif counter <= 1 then
-                dir = false
-            end
-            if dir == true then
-                counter -= 1
-            else
-                counter += 1
-            end
-            wait(0.2)
+        path:ComputeAsync(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, character.HumanoidRootPart.Position + Vector3.new(2, 0, 0))
+        for i,v in pairs(path:GetWaypoints()) do
+            game.Players.LocalPlayer.Character.Humanoid:MoveTo(v.Position)
         end
-    end
-end)
-
-task.spawn(function()
-    while true do
-        wait(math.random(16.25))
-        for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                game.Players.LocalPlayer:RevokeFriendship(v, v)
-            end
-        end
-    end
-end)
-
-spawn(function()
-    while true do
-        wait()
-        if #game.Players:GetPlayers() == 1 then
-            pcall(ServerHop)
-        end
-    end
-end)
-
-local numb = 0
-spawn(function()
-    while true do
+        wait(1)
+        coroutine.wrap(function()
+            repeat wait()
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPlayer.Character.HumanoidRootPart.Position + Vector3.new(5, 0, 0))
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.lookAt(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, targetPlayer.Character.HumanoidRootPart.Position)
+            until drain
+        end)()
+        Chat(ChatLists.greetTable[math.random(1, (#ChatLists.greetTable))] .. " " .. targetPlayer.DisplayName .. " ")
+        wait(2)
+        Chat("I have something to tell you.")
+        wait(1.5)
+        Chat("read this.")
         wait(0.5)
-        numb = numb + 1
-        if numb == 140 then
-            pcall(hop)
+        if game.Players.LocalPlayer.Backpack:FindFirstChild("Sign") then
+            game.Players.LocalPlayer.Backpack.Sign.Parent = game.Players.LocalPlayer.Character
+            wait(1)
         end
+        wait(3)
+        Chat("You see it?")
+        wait(2)
+        Chat("heres a song u should listen to. "  .. ChatLists.songTable[math.random(1, (#ChatLists.songTable))])
+        wait(1)
+        Chat("see you soon")
+        wait(.1)
+        game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+        wait(.1)
+        playRandomWaveAnimation()
+        drain = true
+        wait(3)
     end
-end)
---------------------------------------------------------------------------
-
---------------------------------------------------------------------------
-
-
+end
+Chat("For some reason i can smell that Roblox Default Chat Systems is broken and keeps tagging my greetings..")
+wait(1)
+Chat("Serverhopping")
+wait(1)
+hop()
+wait(5)
+Chat("Failed to serverhop. Error at Line [8629]: gothamSSn.json ###########*")
