@@ -1,11 +1,10 @@
--- [ bot made by krone and krone only nobody else ]
--- [ only being krone works else you get logged xD ]
+-- [ bot made by fault and fault only nobody else ]
+-- [ only being fault works else you get logged xD ]
 -- [ anyone claiming they have the source is larp ]
 
 Players, RunService, HttpService, TPService = game:GetService("Players"), game:GetService("RunService"), game:GetService("HttpService"), game:GetService("TeleportService")
 
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
-
 
 local function RemoveGuis()
     for i, object in pairs(LocalPlayer.PlayerGui:GetChildren()) do
@@ -88,6 +87,7 @@ end
 
 coroutine.wrap(delayAndTeleport)()
 
+
 --[ Tables ]--
 getgenv().DuoTable = {
     server = {
@@ -99,32 +99,20 @@ getgenv().DuoTable = {
         "best botted server || hate",
         "im sooo much better than you || hate",
         "Hi everyone || hate",
-        "dollhouse kids crying over a bot 💤 || hate",
-        "im really just hoping everything is bad for yall man || hate",
-        "come cry in the server bout how the bot is upsetting u 😢😢 || hate",
-        "bums 😭 || hate",
-        "whats the point of banning me when i can js come back || hate"
     },
-    krone = {
-        "best source known to man || krоne",
-        "i know you're upset at me || krоne",
-        "i hope you fail at going up in life || krоne",
-        "best botted server || krоne",
-        "i feel more superior when im in your server || krоne",
-        "bow down to me || krоne",
-        "i hope you like the noise || krоne",
-    	"dollhouse filled with corny newgens is insane | krоne",
-    	"u guys really are losers | krоne",
-    	"go outside | krоne",
-    	"BOOO 👻👻👻 DOLLHOUSIANS.. OOO IM A JOB APPLICATIONNNN | krоne",
-    	"cry harder | krоne",
-    	"braden keep crying we flood ur game | krоne",
-    
+    fault = {
+        "AHHHHH I HATE YOU!!! || 😅",
+        "ITS YOUR FAULT STOP IT NOW OH MY GOD || 😅",
+        "YOU WILL NEVER TAKE ME ALIVE!!!!! || 😅",
+        "I HATE YOU AGHHH I HATE YOU I HATE YOU I HATE YOU I HATE YOU || 😅",
+        "YOUR THE REASON IM LIKE THIS || 😅",
+        "GET AWAY FROM ME RIGHT NOW!!!! || 😅",
+        "OH MY GODDDDDDD YOU DID THIS YOU ARE THE REASON IM LIKE THIS ILL NEVER BE THE SAME AGAIN || 😅",
     },
     both = {
-        "best duo ngl || hate x krоne",
-        "nobody can stop us || krоne x hate",
-        "its our time now || krоne x hate",
+        "best duo ngl || hate x fault",
+        "nobody can stop us || fault x hate",
+        "its our time now || fault x hate",
     },
     songTable = {
       "hillmurder - nine w/ @s6erpent #xp",
@@ -188,22 +176,22 @@ getgenv().DuoTable = {
       "join",
       "join ",
       "join /",
-      "join /i",
-      "join /in",
-      "join /ins",
-      "join /insi",
-      "join /insis",
-      "join /insist",
-      "join /insist",
-      "join /insist lol",
-      "join /insist",
-      "join /insist",
-      "join /insis",
-      "join /insi",
-      "join /ins",
-      "join /in",
-      "join /i",
-      "join /",
+      "join /s",
+      "join /sh",
+      "join /shh",
+      "join /shhh",
+      "join /shhh",
+      "join /shhh",
+      "join /shhh",
+      "join /shhh lol",
+      "join /shhh lol",
+      "join /shhh",
+      "join /shhh",
+      "join /shh",
+      "join /sh",
+      "join /s",
+      "join /s",
+      "join /s",
       "join ",
       "join",
       "joi",
@@ -231,6 +219,11 @@ getgenv().rejoin = game:GetService("CoreGui").RobloxPromptGui.promptOverlay.Chil
     end
 end)
 
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+    game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    wait(1)
+    game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+end)
 
 
 --------------------------------------
@@ -255,7 +248,7 @@ end)
 
 for i,v in next, workspace:GetDescendants() do
     if v:IsA'Seat' then
-      v.Disabled = true
+	    v.Disabled = true
     end
 end
 --------------------------------------------------------------------------
@@ -298,52 +291,6 @@ local function hop()
     end
 end
 
-local function delayAndTeleport2()
-    local function teleport2()
-          hop()
-    end
-    local delayTime = 120 -- Adjust the delay time (in seconds) as needed
-    wait(delayTime)
-
-    teleport2()
-end
-coroutine.wrap(delayAndTeleport2)()
-
---[[
-local function CheckIfMod(Moderator)
-    if (game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorType == "Group" and true or false) == true then
-        local GetId = game:GetService("GroupService"):GetGroupInfoAsync(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Creator.CreatorTargetId).Id
-        local GroupId = tonumber(GetId)
-        
-        if Moderator:IsInGroup(GroupId) and Moderator:GetRankInGroup(GroupId) > 3 or Moderator.UserId == 463040794 then
-            game.Players.LocalPlayer:Kick("Detected Moderator / Admin: " .. tostring(Moderator))
-	    wait(.2)
-	    hop()
-        end
-    end
-end
-
-for _, Moderator in pairs(game:GetService("Players"):GetPlayers()) do
-    coroutine.resume(coroutine.create(function()
-        if Moderator ~= game.Players.LocalPlayer then
-            CheckIfMod(Moderator)
-        end
-    end))
-end
-]]--
-
-game:GetService("Players").PlayerAdded:Connect(function(Moderator)
-    coroutine.resume(coroutine.create(function()
-        if Moderator ~= game.Players.LocalPlayer then
-            CheckIfMod(Moderator)
-        end
-    end))
-end)
-
-local function tp(cframe, speed)
-    local tween = game:GetService("TweenService")
-    tween:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(speed, Enum.EasingStyle.Linear), { CFrame = cframe }):Play()
-end
 
 --------------------------------------------------------------------------
 
@@ -379,101 +326,83 @@ local function Chat(msg)
     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
 end
 
+--[[
+
 coroutine.wrap(function()
     while true do
-        wait(1.765)
+        wait(0.5)
         local random_numbers = math.random(1,3)
         if random_numbers == 1 then
             Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.hate[math.random(1, (#DuoTable.hate))])
         elseif random_numbers == 2 then
-            Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.krone[math.random(1, (#DuoTable.krone))])
+            Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.fault[math.random(1, (#DuoTable.fault))])
         else
             Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.both[math.random(1, (#DuoTable.both))])
         end
     end
 end)()
 
+]]--
+
+coroutine.wrap(function()
+    while true do
+        wait(0.5)
+        -- //   local random_numbers = math.random(1,3)
+        Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.fault[math.random(1, (#DuoTable.fault))])
+    end
+end)()
 --------------------------------------------------------------------------
 
--------------------
-
-function Flinger()
-spawn(function()
-    while task.wait(5) do
-        if #game.Players:GetPlayers() <= 2 then
-            hop()
-        end
-    end
-end)
-        
-spawn(function()
-    while task.wait() do
-	game.Players.LocalPlayer.Character.Humanoid:ChangeState("Swimming")
-        if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Sit == true then
-            spawn(function()
-                LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
-            end)
-            spawn(function()
-                LocalPlayer.Character:FindFirstChildOfClass("Humanoid").Sit = false
-            end)
-        end
-    end
-end)
-
-spawn(function()
-        while wait() do
-            pcall(function()
-                for index, plr in pairs(game.Players:GetPlayers()) do
-                   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false then
-                        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-                        local tchar = plr.Character
-                        if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
-                            local HRP = character:FindFirstChild("HumanoidRootPart")
-                            local Flinging = nil
-                            local noclipping = nil
-                            
-                            function fling(base1, base2, multiplier)
-                                base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
-                                base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
-                                base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
-                            end
-                            
-                            local function a1()
-                                fling(HRP, tchar.HumanoidRootPart, 6)
-                                RunService.Stepped:Wait()
-                                fling(HRP, tchar.HumanoidRootPart, 1)
-                                RunService.Stepped:Wait()
-                                fling(HRP, tchar.HumanoidRootPart, 8)
-                            end
-                            Flinging = RunService.RenderStepped:Connect(a1)
-                            local function a2()
-                                for i,v in next, character:GetChildren() do
-                                    if v:IsA('BasePart') then
-                                        v.CanCollide = false
-                                    end
-                                end
-                            end
-                            noclipping = RunService.Stepped:Connect(a2)
-                            
-                            local BV = Instance.new("BodyVelocity")
-                            BV.Parent = HRP
-                            BV.Velocity = Vector3.new(0,0,0)
-                            BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
-                            
-                            wait(.7)
-                            character.Humanoid:ChangeState("GettingUp")
-                            Flinging:Disconnect()
-                            noclipping:Disconnect()
-                        end
-                    end
-                end
-            end)
-        end
-    end)
-    wait(90)
-    hop()
+wait(1)
+local function tp(cframe, speed)
+    local tween = game:GetService("TweenService")
+    tween:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(speed, Enum.EasingStyle.Linear), { CFrame = cframe }):Play()
 end
-coroutine.wrap(Flinger)()
+local numb = 0
+local speed = 0.5
+local radius = math.random(3,7) --- orbit size
+local eclipse = 1 --- width of orbit
+local rotation = CFrame.Angles(0, math.random(90,145), 0) --only works for unanchored parts (not localplayer)
+local sin, cos = math.sin, math.cos
+local rotspeed = math.pi * 2 / speed
+eclipse = eclipse * radius
+local rot = 0
+--[ Fling Function ]--
+wait(1)
+
+local autokillfling = function(Player, Delay)
+    pcall(function()
+        workspace['FallenPartsDestroyHeight'] = 0 / 0
+        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
+        local Target = Player.Character.HumanoidRootPart
+        local Me = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local LastCF = Me.CFrame
+        local Delay = Delay or 1 / 5
+        local Angle = 165
+        autokillfling = game:GetService('RunService').Stepped:connect(function(t, dt)
+            rot = rot + dt * rotspeed
+            Me.CFrame = rotation * CFrame.new(sin(rot) * eclipse, 0, cos(rot) * radius) + Target.Position
+            LocalPlayer.Character.Humanoid:ChangeState("Swimming")
+        end)
+
+        wait(Delay)
+        LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
+        autokillfling:Disconnect()
+    end)
+end
+--------------------------------------------------------------------------
+
+--[ Body Velocity ]--
+spawn(function()
+    while true do
+        for _, v in ipairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer then
+                autokillfling(v, 3)
+            end
+        end
+        wait()
+    end
+end)
 
 spawn(function()
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Sign") then
@@ -512,6 +441,28 @@ task.spawn(function()
         end
     end
 end)
+
+spawn(function()
+    while true do
+        wait()
+        if #game.Players:GetPlayers() == 1 then
+            pcall(ServerHop)
+        end
+    end
+end)
+
+local numb = 0
+spawn(function()
+    while true do
+        wait(0.5)
+        numb = numb + 1
+        if numb == 140 then
+            pcall(hop)
+        end
+    end
+end)
 --------------------------------------------------------------------------
 
 --------------------------------------------------------------------------
+
+
