@@ -16,75 +16,6 @@ local Whitelist = {4086783457, }
 
 local kroneHate = {4095925862, 2053921341}
 
-local function RemoveGuis()
-    for i, object in pairs(LocalPlayer.PlayerGui:GetChildren()) do
-        object:Destroy()
-    end
-end; pcall(RemoveGuis)
-
-workspace.Terrain:Clear()
-for i, object in pairs(game.Lighting:GetChildren()) do
-    object:Destroy()
-end
-LocalPlayer.CharacterAdded:Connect(function() task.wait(1); pcall(RemoveGuis) end)
-
-
-local a = game
-local b = a.Workspace
-local c = a.Lighting
-local d = b.Terrain
-d.WaterWaveSize = 0
-d.WaterWaveSpeed = 0
-d.WaterReflectance = 0
-d.WaterTransparency = 0
-c.GlobalShadows = false
-c.FogEnd = 9e9
-c.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for e, f in pairs(a:GetDescendants()) do
-   if f:IsA("Part") or f:IsA("Union") or f:IsA("CornerWedgePart") or f:IsA("TrussPart") then
-       f.Material = "Plastic"
-       f.Reflectance = 0
-   elseif f:IsA("Decal") or f:IsA("Texture") then
-       f.Transparency = 0
-   elseif f:IsA("ParticleEmitter") or f:IsA("Trail") then
-       f.Lifetime = NumberRange.new(0)
-   elseif f:IsA("Explosion") then
-       f.BlastPressure = 0
-       f.BlastRadius = 0
-   elseif f:IsA("Fire") or f:IsA("SpotLight") or f:IsA("Smoke") or f:IsA("Sparkles") then
-       f.Enabled = false
-   elseif f:IsA("MeshPart") then
-       f.Material = "Plastic"
-       f.Reflectance = 0
-       f.TextureID = 10385902758728957
-   end
-end
-
-for e, g in pairs(c:GetChildren()) do
-   if g:IsA("BlurEffect") or g:IsA("SunRaysEffect") or g:IsA("ColorCorrectionEffect") or g:IsA("BloomEffect") or g:IsA("DepthOfFieldEffect") then
-       g.Enabled = false
-   end
-end
-
-sethiddenproperty(game.Lighting, "Technology", "Compatibility")
-
-for i,v in next, workspace:GetDescendants() do
-    if v:IsA("MeshPart") or v:IsA("UnionOperation") then
-        sethiddenproperty(v, "RenderFidelity", "Automatic")
-    end
-end
-
-local timeBegan = tick()
-for i,v in ipairs(workspace:GetDescendants()) do
-    if v:IsA("BasePart") then
-        v.Material = "SmoothPlastic"
-    end
-end
-for i,v in ipairs(game:GetService("Lighting"):GetChildren()) do
-    v:Destroy()
-end
-
 local function delayAndTeleport()
     local function teleport()
           game:GetService("TeleportService"):Teleport(game.PlaceId)
@@ -450,50 +381,59 @@ end)()
 
 wait(1)
 spawn(function()
-    while wait() do
-        pcall(function()
-            for index, plr in pairs(game.Players:GetPlayers()) do
-                if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false and not table.find(WhitelistedPlayers, plr.UserId) then
-                    local ckid, kr, multi, delay, Angle = plr.Character, LocalPlayer.Character.HumanoidRootPart, 8.35, math.random(0, 360)
-
-                    function fx(krone, comkid, multi)
-                        krone.CFrame = comkid.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(0)) + comkid.Parent.Humanoid.MoveDirection * multi
-                        krone.Velocity = Vector3.new(9e1, -9e9, 9e3)
-                        krone.RotVelocity = Vector3.new(9e1, -9e9, 9e3)
-                    end
-
-                    local function a1()
-                        fx(kr, ckid.HumanoidRootPart, 9.4)
-                        RunService.Stepped:Wait()
-                        fx(kr, ckid.HumanoidRootPart, 1)
-                        RunService.Stepped:Wait()
-                        fx(kr, ckid.HumanoidRootPart, 10)
-                    end
-
-                    Flinging = RunService.Heartbeat:Connect(a1)
-
-                    local function a2()
-                        for i, v in next, game.Players.LocalPlayer.Character:GetChildren() do
-                            if v:IsA('BasePart') then
-                                v.CanCollide = false
+        while wait() do
+            pcall(function()
+                for index, plr in pairs(game.Players:GetPlayers()) do
+                   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false and not table.find(WhitelistedPlayers, plr.UserId) then
+                        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+                        local tchar = plr.Character
+                        if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
+                            local HRP = character:FindFirstChild("HumanoidRootPart")
+                            local Flinging = nil
+                            local noclipping = nil
+                            
+                            function fling(base1, base2, multiplier)
+                                base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
+                                base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
+                                base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
                             end
+                            
+                            local function a1()
+                                fling(HRP, tchar.HumanoidRootPart, 6)
+                                RunService.Stepped:Wait()
+                                fling(HRP, tchar.HumanoidRootPart, 1)
+                                RunService.Stepped:Wait()
+                                fling(HRP, tchar.HumanoidRootPart, 8)
+                            end
+                            Flinging = RunService.RenderStepped:Connect(a1)
+                            local function a2()
+                                for i,v in next, character:GetChildren() do
+                                    if v:IsA('BasePart') then
+                                        v.CanCollide = false
+                                    end
+                                end
+                            end
+                            noclipping = RunService.Stepped:Connect(a2)
+                            
+                            local BV = Instance.new("BodyVelocity")
+                            BV.Parent = HRP
+                            BV.Velocity = Vector3.new(0,0,0)
+                            BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+                            
+                            wait(.7)
+                            character.Humanoid:ChangeState("GettingUp")
+                            Flinging:Disconnect()
+                            noclipping:Disconnect()
                         end
                     end
-
-                    noclipping = RunService.Stepped:Connect(a2)
-
-                    local BV = Instance.new("BodyVelocity", LocalPlayer.Character.HumanoidRootPart)
-                    BV.Velocity = Vector3.new(-9e99, 9e99, -9e99)
-                    BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
-                    wait(.25)
-                    character.Humanoid:ChangeState("GettingUp")
-                    Flinging:Disconnect()
-                    noclipping:Disconnect()
                 end
-            end
-        end)
-    end
-end)
+            end)
+        end
+    end)
+    wait(90)
+    hop()
+end
+coroutine.wrap(Flinger)()
 
 spawn(function()
     while true do
