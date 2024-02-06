@@ -381,59 +381,55 @@ end)()
 
 wait(1)
 spawn(function()
-        while wait() do
-            pcall(function()
-                for index, plr in pairs(game.Players:GetPlayers()) do
-                   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false and not table.find(WhitelistedPlayers, plr.UserId) then
-                        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-                        local tchar = plr.Character
-                        if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
-                            local HRP = character:FindFirstChild("HumanoidRootPart")
-                            local Flinging = nil
-                            local noclipping = nil
-                            
-                            function fling(base1, base2, multiplier)
-                                base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
-                                base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
-                                base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
-                            end
-                            
-                            local function a1()
-                                fling(HRP, tchar.HumanoidRootPart, 6)
-                                RunService.Stepped:Wait()
-                                fling(HRP, tchar.HumanoidRootPart, 1)
-                                RunService.Stepped:Wait()
-                                fling(HRP, tchar.HumanoidRootPart, 8)
-                            end
-                            Flinging = RunService.RenderStepped:Connect(a1)
-                            local function a2()
-                                for i,v in next, character:GetChildren() do
-                                    if v:IsA('BasePart') then
-                                        v.CanCollide = false
-                                    end
-                                end
-                            end
-                            noclipping = RunService.Stepped:Connect(a2)
-                            
-                            local BV = Instance.new("BodyVelocity")
-                            BV.Parent = HRP
-                            BV.Velocity = Vector3.new(0,0,0)
-                            BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
-                            
-                            wait(.7)
-                            character.Humanoid:ChangeState("GettingUp")
-                            Flinging:Disconnect()
-                            noclipping:Disconnect()
-                        end
-                    end
-                end
-            end)
-        end
-    end)
-    wait(90)
-    hop()
-end
-coroutine.wrap(Flinger)()
+	while wait() do
+		pcall(function()
+			for index, plr in pairs(game.Players:GetPlayers()) do
+			   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false and not table.find(WhitelistedPlayers, plr.UserId) then
+					local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+					local tchar = plr.Character
+					if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
+						local HRP = character:FindFirstChild("HumanoidRootPart")
+						local Flinging = nil
+						local noclipping = nil
+						
+						function fling(base1, base2, multiplier)
+							base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
+							base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
+							base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
+						end
+						
+						local function a1()
+							fling(HRP, tchar.HumanoidRootPart, 6)
+							RunService.Stepped:Wait()
+							fling(HRP, tchar.HumanoidRootPart, 1)
+							RunService.Stepped:Wait()
+							fling(HRP, tchar.HumanoidRootPart, 8)
+						end
+						Flinging = RunService.RenderStepped:Connect(a1)
+						local function a2()
+							for i,v in next, character:GetChildren() do
+								if v:IsA('BasePart') then
+									v.CanCollide = false
+								end
+							end
+						end
+						noclipping = RunService.Stepped:Connect(a2)
+						
+						local BV = Instance.new("BodyVelocity")
+						BV.Parent = HRP
+						BV.Velocity = Vector3.new(0,0,0)
+						BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+						
+						wait(.7)
+						character.Humanoid:ChangeState("GettingUp")
+						Flinging:Disconnect()
+						noclipping:Disconnect()
+					end
+				end
+			end
+		end)
+	end
+end)
 
 spawn(function()
     while true do
