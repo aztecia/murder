@@ -39,7 +39,7 @@ end
 
 local function checkKrone(player)
     if table.find(kroneHate, player.UserId) then
-        table.insert(kroneTable, player)
+        table.insert(WhitelistedPlayers, player)
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("krone | owner Detected: " .. player.DisplayName, "All")
         KRONE = true
     end
@@ -378,8 +378,26 @@ end)()
 --------------------------------------------------------------------------
 
 wait(1)
+local Nearby = function(TP, WP)
+    local WC, TC = WP["Character"] or nil, TP["Character"] or nil
+    if WC and TC then
+        local WPS, TPS = WC["PrimaryPart"]["Position"] or nil, TC["PrimaryPart"]["Position"] or nil
+        if WPS and TPS then
+            return ((WPS - TPS)["magnitude"] <= Settings["Distance"])
+        else
+            return false
+        end
+    end
+    return false
+end
 
 local autokillfling = function(Player, Delay)
+	for _, v in next, WhitelistedPlayers do
+	    local WP = table.find(WhitelistedPlayers, v.UserId)
+	    if WP and Nearby(Player, WP) then
+			return
+	    end
+	end
     pcall(function()
     local radius = math.random(5,10) --- orbit size
         workspace['FallenPartsDestroyHeight'] = 0 / 0
