@@ -409,7 +409,8 @@ local autokillfling = function(Player, Delay)
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Heartbeat:connect(function()
-            Me.CFrame = Target and Target.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
+            Me.CFrame = Target and Target.CFrame * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5
+	    Me.RotVelocity = Vector3.new(-9e9, 9e9, -9e9)
         end)
 
         wait(Delay)
@@ -417,9 +418,6 @@ local autokillfling = function(Player, Delay)
     end)
 end
 
-local BV = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
-BV.Velocity = Vector3.new(-9e9, 9e9, -9e9)
-BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
 
 spawn(function()
     while true do
@@ -432,17 +430,6 @@ spawn(function()
     end
 end)
 
-
-spawn(function()
-    while true do
-        wait(math.random(16.25))
-        for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                game.Players.LocalPlayer:RevokeFriendship(v, v)
-            end
-        end
-    end
-end)
 
 spawn(function()
     while true do
