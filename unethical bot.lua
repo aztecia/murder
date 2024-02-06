@@ -423,7 +423,7 @@ spawn(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
             if v ~= game.Players.LocalPlayer and not table.find(WhitelistedPlayers, v.UserId) then
-                autokillfling(v, 1.5)
+                autokillfling(v, 0.5)
             end
         end
         wait()
