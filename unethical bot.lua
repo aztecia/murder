@@ -392,16 +392,16 @@ spawn(function()
 						
 						function fling(base1, base2, multiplier)
 							base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
-							base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
-							base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
+							base1.Velocity = Vector3.new(-1e4, 1e4, -1e4)
+							base1.RotVelocity = Vector3.new(-1e4, 1e4, -1e4)
 						end
 						
 						local function a1()
-							fling(HRP, tchar.HumanoidRootPart, 6)
+							fling(HRP, tchar.HumanoidRootPart, 8)
 							RunService.Stepped:Wait()
 							fling(HRP, tchar.HumanoidRootPart, 1)
 							RunService.Stepped:Wait()
-							fling(HRP, tchar.HumanoidRootPart, 8)
+							fling(HRP, tchar.HumanoidRootPart, 10)
 						end
 						Flinging = RunService.RenderStepped:Connect(a1)
 						local function a2()
