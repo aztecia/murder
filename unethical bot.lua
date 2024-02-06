@@ -10,7 +10,7 @@ LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
 local Blacklist = {}
 
-local Whitelist = {4086783457, }
+local Whitelist = {4086783457, 102605219}
 
 local kroneHate = {4095925862, 2053921341}
 
