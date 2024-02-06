@@ -354,82 +354,63 @@ end)()
 --------------------------------------------------------------------------
 
 wait(1)
-local function tp(cframe, speed)
-    local tween = game:GetService("TweenService")
-    tween:Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(speed, Enum.EasingStyle.Linear), { CFrame = cframe }):Play()
-end
-local numb = 0
-local speed = 0.5
-local radius = math.random(3,7) --- orbit size
-local eclipse = 1 --- width of orbit
-local rotation = CFrame.Angles(0, math.random(90,145), 0) --only works for unanchored parts (not localplayer)
-local sin, cos = math.sin, math.cos
-local rotspeed = math.pi * 2 / speed
-eclipse = eclipse * radius
-local rot = 0
---[ Fling Function ]--
-wait(1)
-
-local autokillfling = function(Player, Delay)
-    pcall(function()
-        workspace['FallenPartsDestroyHeight'] = 0 / 0
-        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
-        local Target = Player.Character.HumanoidRootPart
-        local Me = game.Players.LocalPlayer.Character.HumanoidRootPart
-        local LastCF = Me.CFrame
-        local Delay = Delay or 1 / 5
-        local Angle = 165
-        autokillfling = game:GetService('RunService').Stepped:connect(function(t, dt)
-            rot = rot + dt * rotspeed
-            Me.CFrame = rotation * CFrame.new(sin(rot) * eclipse, 0, cos(rot) * radius) + Target.Position
-            LocalPlayer.Character.Humanoid:ChangeState("Swimming")
-        end)
-
-        wait(Delay)
-        LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
-        autokillfling:Disconnect()
+spawn(function()
+        while wait() do
+            pcall(function()
+                for index, plr in pairs(game.Players:GetPlayers()) do
+                   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false then
+                        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+                        local tchar = plr.Character
+                        if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
+                            local HRP = character:FindFirstChild("HumanoidRootPart")
+                            local Flinging = nil
+                            local noclipping = nil
+                            
+                            function fling(base1, base2, multiplier)
+                                base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
+                                base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
+                                base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
+                            end
+                            
+                            local function a1()
+                                fling(HRP, tchar.HumanoidRootPart, 6)
+                                RunService.Stepped:Wait()
+                                fling(HRP, tchar.HumanoidRootPart, 1)
+                                RunService.Stepped:Wait()
+                                fling(HRP, tchar.HumanoidRootPart, 8)
+                            end
+                            Flinging = RunService.RenderStepped:Connect(a1)
+                            local function a2()
+                                for i,v in next, character:GetChildren() do
+                                    if v:IsA('BasePart') then
+                                        v.CanCollide = false
+                                    end
+                                end
+                            end
+                            noclipping = RunService.Stepped:Connect(a2)
+                            
+                            local BV = Instance.new("BodyVelocity")
+                            BV.Parent = HRP
+                            BV.Velocity = Vector3.new(0,0,0)
+                            BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
+                            
+                            wait(.7)
+                            character.Humanoid:ChangeState("GettingUp")
+                            Flinging:Disconnect()
+                            noclipping:Disconnect()
+                        end
+                    end
+                end
+            end)
+        end
     end)
+    wait(90)
+    hop()
 end
---------------------------------------------------------------------------
+coroutine.wrap(Flinger)()
+--------------------------------------------------------------------
 
 --[ Body Velocity ]--
-spawn(function()
-    while true do
-        for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer then
-                autokillfling(v, 3)
-            end
-        end
-        wait()
-    end
-end)
-
-spawn(function()
-if game.Players.LocalPlayer.Backpack:FindFirstChild("Sign") then
-    game.Players.LocalPlayer.Backpack.Sign.Parent = game.Players.LocalPlayer.Character
-        local counter = 1
-        local total_len = #DuoTable.signmsg
-        local dir = false
-        while true do
-            local args = {
-                [1] = "text",
-                [2] = DuoTable.signmsg[counter]
-            }
-            game:GetService("ReplicatedStorage").Alright:FireServer(unpack(args))
-            if counter >= total_len then
-                dir = true
-            elseif counter <= 1 then
-                dir = false
-            end
-            if dir == true then
-                counter -= 1
-            else
-                counter += 1
-            end
-            wait(0.2)
-        end
-    end
-end)
 
 task.spawn(function()
     while true do
