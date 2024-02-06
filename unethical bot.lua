@@ -12,9 +12,9 @@ local Blacklist = {
     2624322912, 179382225, 1763959549, 594466748, 1226511307, 96341697, 1127310364, 300973348, 340313047, 2357464908, 1692404954, 1164656128, 4091825339, 4642921141, 427350315, 4151946796, 676922605, 4291227408, 3698921306, 281175, 3649518491, 4716685339, 1227687540, 3431620134, 4802734169, 12823259, 90092430, 970409153, 958344097
 }
 
-local Whitelist = {}
+local Whitelist = {4086783457, }
 
-local kroneUserids = {4095925862}
+local kroneHate = {4095925862, 2053921341}
 
 local function RemoveGuis()
     for i, object in pairs(LocalPlayer.PlayerGui:GetChildren()) do
@@ -109,7 +109,7 @@ local function checkBlacklist(player)
 end
 
 local function checkKrone(player)
-    if table.find(kroneUserids, player.UserId) then
+    if table.find(kroneHate, player.UserId) then
         table.insert(kroneTable, player)
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("krone | owner Detected: " .. player.DisplayName, "All")
         KRONE = true
