@@ -378,6 +378,7 @@ end)()
 --------------------------------------------------------------------------
 
 wait(1)
+
 local Nearby = function(TP, WP)
     local WC, TC = WP["Character"] or nil, TP["Character"] or nil
     if WC and TC then
@@ -392,13 +393,13 @@ local Nearby = function(TP, WP)
 end
 
 local autokillfling = function(Player, Delay)
+    pcall(function()
 	for _, v in next, WhitelistedPlayers do
 	    local WP = table.find(WhitelistedPlayers, v.UserId)
 	    if WP and Nearby(Player, WP) then
 			return
 	    end
 	end
-    pcall(function()
     local radius = math.random(5,10) --- orbit size
         workspace['FallenPartsDestroyHeight'] = 0 / 0
         workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
