@@ -404,7 +404,7 @@ end
 task.spawn(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer and not table.find(WhitelistedPlayers, plr.UserId) then
+            if v ~= game.Players.LocalPlayer and not table.find(WhitelistedPlayers, v.UserId) then
                 autokillfling(v, 1.5)
             end
         end
