@@ -392,8 +392,8 @@ local autokillfling = function(Player, Delay)
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Stepped:connect(function()
             Me.CFrame = Target and Target.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
-            LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(-1e1, 1e1, -1e1)
-            LocalPlayer.Character.Humanoid:ChangeState("Swimming")
+            LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(9e1, -9e9, 9e3)
+            LocalPlayer.Character.HumanoidRootPart.RotVelocity = Vector3.new(9e1, -9e9, 9e3)
         end)
 
         wait(Delay)
@@ -402,10 +402,10 @@ local autokillfling = function(Player, Delay)
 end
 
 local BV = Instance.new("BodyVelocity")
-	BV.Velocity = Vector3.new(-9e9, 9e9, -9e9)
-	BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
+BV.Velocity = Vector3.new(-9e9, 9e9, -9e9)
+BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
 
-task.spawn(function()
+spawn(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
             if v ~= game.Players.LocalPlayer and not table.find(WhitelistedPlayers, v.UserId) then
