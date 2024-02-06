@@ -6,6 +6,16 @@ Players, RunService, HttpService, TPService = game:GetService("Players"), game:G
 
 LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
+--[ Tables ]--
+
+local Blacklist = {
+    2624322912, 179382225, 1763959549, 594466748, 1226511307, 96341697, 1127310364, 300973348, 340313047, 2357464908, 1692404954, 1164656128, 4091825339, 4642921141, 427350315, 4151946796, 676922605, 4291227408, 3698921306, 281175, 3649518491, 4716685339, 1227687540, 3431620134, 4802734169, 12823259, 90092430, 970409153, 958344097
+}
+
+local Whitelist = {}
+
+local kroneUserids = {4095925862}
+
 local function RemoveGuis()
     for i, object in pairs(LocalPlayer.PlayerGui:GetChildren()) do
         object:Destroy()
@@ -87,6 +97,103 @@ end
 
 coroutine.wrap(delayAndTeleport)()
 
+local BlacklistedPlayers, WhitelistedPlayers, ModsTable, kroneTable = {}, {}, {}, {}
+local BLSV, WLSV, MDSV, KRONE = false, false, false, false
+
+local function checkBlacklist(player)
+    if table.find(Blacklist, player.UserId) then
+        table.insert(BlacklistedPlayers, player)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Blacklisted Player Detected: " .. player.DisplayName, "All")
+        BLSV = true
+    end
+end
+
+local function checkKrone(player)
+    if table.find(kroneUserids, player.UserId) then
+        table.insert(kroneTable, player)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("krone | owner Detected: " .. player.DisplayName, "All")
+        KRONE = true
+    end
+end
+
+local function checkWhitelist(player)
+    if table.find(WhitelistedPlayers, player.UserId) then
+        table.insert(WhitelistedPlayers, player)
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Whitelisted Player Detected: " .. player.DisplayName, "All")
+    end
+    WLSV = true
+end
+
+local function checkAllPlayers()
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            checkBlacklist(player)
+            checkKrone(player)
+            checkWhitelist(player)
+        end
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    if player ~= LocalPlayer then
+        checkBlacklist(player)
+        checkKrone(player)
+        checkWhitelist(player)
+    end
+end)
+
+checkAllPlayers()
+
+coroutine.wrap(function()
+    while true do
+        task.wait()
+        if #BlacklistedPlayers > 0 then
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= LocalPlayer and not table.find(BlacklistedPlayers, player) then
+                    player:Destroy()
+                    if player.Character then
+                        player.Character:Destroy()
+                        wait(0.1)
+                    end
+                end
+            end
+        end
+    end
+end)()
+
+coroutine.wrap(function()
+    while true do
+        task.wait()
+        if #WhitelistedPlayers > 0 then
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= LocalPlayer and table.find(WhitelistedPlayers, player) then
+                    player:Destroy()
+                    if player.Character then
+                        player.Character:Destroy()
+                        wait(0.1)
+                    end
+                end
+            end
+        end
+    end
+end)()
+
+coroutine.wrap(function()
+    while true do
+        task.wait()
+        if #kroneTable > 0 then
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= LocalPlayer and table.find(kroneTable, player) then
+                    player:Destroy()
+                    if player.Character then
+                        player.Character:Destroy()
+                        wait(0.1)
+                    end
+                end
+            end
+        end
+    end
+end)()
 
 --[ Tables ]--
 getgenv().DuoTable = {
@@ -326,8 +433,6 @@ local function Chat(msg)
     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, "All")
 end
 
---[[
-
 coroutine.wrap(function()
     while true do
         wait(0.5)
@@ -341,78 +446,56 @@ coroutine.wrap(function()
         end
     end
 end)()
-
-]]--
-
-coroutine.wrap(function()
-    while true do
-        wait(0.5)
-        -- //   local random_numbers = math.random(1,3)
-        Chat(DuoTable.server[math.random(1, (#DuoTable.server))] .. " || " .. DuoTable.fault[math.random(1, (#DuoTable.fault))])
-    end
-end)()
 --------------------------------------------------------------------------
 
 wait(1)
 spawn(function()
-        while wait() do
-            pcall(function()
-                for index, plr in pairs(game.Players:GetPlayers()) do
-                   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false then
-                        local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-                        local tchar = plr.Character
-                        if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
-                            local HRP = character:FindFirstChild("HumanoidRootPart")
-                            local Flinging = nil
-                            local noclipping = nil
-                            
-                            function fling(base1, base2, multiplier)
-                                base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
-                                base1.Velocity = Vector3.new(-1e6, 1e6, -1e6)
-                                base1.RotVelocity = Vector3.new(-1e5, 1e5, -1e5)
+    while wait() do
+        pcall(function()
+            for index, plr in pairs(game.Players:GetPlayers()) do
+                if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false and not table.find(WhitelistedPlayers, plr.UserId) then
+                    local ckid, kr, multi, delay, Angle = plr.Character, LocalPlayer.Character.HumanoidRootPart, 8.35, math.random(0, 360)
+
+                    function fx(krone, comkid, multi)
+                        krone.CFrame = comkid.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(0), math.rad(0)) + comkid.Parent.Humanoid.MoveDirection * multi
+                        krone.Velocity = Vector3.new(9e1, -9e9, 9e3)
+                        krone.RotVelocity = Vector3.new(9e1, -9e9, 9e3)
+                    end
+
+                    local function a1()
+                        fx(kr, ckid.HumanoidRootPart, 9.4)
+                        RunService.Stepped:Wait()
+                        fx(kr, ckid.HumanoidRootPart, 1)
+                        RunService.Stepped:Wait()
+                        fx(kr, ckid.HumanoidRootPart, 10)
+                    end
+
+                    Flinging = RunService.Heartbeat:Connect(a1)
+
+                    local function a2()
+                        for i, v in next, game.Players.LocalPlayer.Character:GetChildren() do
+                            if v:IsA('BasePart') then
+                                v.CanCollide = false
                             end
-                            
-                            local function a1()
-                                fling(HRP, tchar.HumanoidRootPart, 6)
-                                RunService.Stepped:Wait()
-                                fling(HRP, tchar.HumanoidRootPart, 1)
-                                RunService.Stepped:Wait()
-                                fling(HRP, tchar.HumanoidRootPart, 8)
-                            end
-                            Flinging = RunService.RenderStepped:Connect(a1)
-                            local function a2()
-                                for i,v in next, character:GetChildren() do
-                                    if v:IsA('BasePart') then
-                                        v.CanCollide = false
-                                    end
-                                end
-                            end
-                            noclipping = RunService.Stepped:Connect(a2)
-                            
-                            local BV = Instance.new("BodyVelocity")
-                            BV.Parent = HRP
-                            BV.Velocity = Vector3.new(0,0,0)
-                            BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
-                            
-                            wait(.7)
-                            character.Humanoid:ChangeState("GettingUp")
-                            Flinging:Disconnect()
-                            noclipping:Disconnect()
                         end
                     end
+
+                    noclipping = RunService.Stepped:Connect(a2)
+
+                    local BV = Instance.new("BodyVelocity", LocalPlayer.Character.HumanoidRootPart)
+                    BV.Velocity = Vector3.new(-9e99, 9e99, -9e99)
+                    BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
+                    wait(.25)
+                    character.Humanoid:ChangeState("GettingUp")
+                    Flinging:Disconnect()
+                    noclipping:Disconnect()
                 end
-            end)
-        end
-    end)
-    wait(90)
-    hop()
-end
-coroutine.wrap(Flinger)()
---------------------------------------------------------------------
+            end
+        end)
+    end
+end)
 
---[ Body Velocity ]--
-
-task.spawn(function()
+spawn(function()
     while true do
         wait(math.random(16.25))
         for _, v in ipairs(game.Players:GetPlayers()) do
@@ -442,7 +525,4 @@ spawn(function()
         end
     end
 end)
---------------------------------------------------------------------------
-
---------------------------------------------------------------------------
 
