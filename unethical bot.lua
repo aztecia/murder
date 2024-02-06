@@ -46,7 +46,7 @@ local function checkKrone(player)
 end
 
 local function checkWhitelist(player)
-    if table.find(WhitelistedPlayers, player.UserId) then
+    if table.find(Whitelist, player.UserId) then
         table.insert(WhitelistedPlayers, player)
         game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Whitelisted Player Detected: " .. player.DisplayName, "All")
     end
@@ -378,56 +378,40 @@ end)()
 --------------------------------------------------------------------------
 
 wait(1)
-spawn(function()
-	while wait() do
-		pcall(function()
-			for index, plr in pairs(game.Players:GetPlayers()) do
-			   if plr ~= LocalPlayer and plr.Character.Humanoid.Sit == false and not table.find(WhitelistedPlayers, plr.UserId) then
-					local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-					local tchar = plr.Character
-					if character and tchar and tchar:FindFirstChild("HumanoidRootPart") and tchar:FindFirstChildOfClass("Humanoid") then
-						local HRP = character:FindFirstChild("HumanoidRootPart")
-						local Flinging = nil
-						local noclipping = nil
-						
-						function fling(base1, base2, multiplier)
-							base1.CFrame = base2.CFrame * CFrame.Angles(math.rad(math.random(0, 1)), math.rad(180), math.rad(math.random(0, 1))) + base2.Parent.Humanoid.MoveDirection*multiplier
-							base1.Velocity = Vector3.new(-1e4, 1e4, -1e4)
-							base1.RotVelocity = Vector3.new(-1e4, 1e4, -1e4)
-						end
-						
-						local function a1()
-							fling(HRP, tchar.HumanoidRootPart, 8)
-							RunService.Stepped:Wait()
-							fling(HRP, tchar.HumanoidRootPart, 1)
-							RunService.Stepped:Wait()
-							fling(HRP, tchar.HumanoidRootPart, 10)
-						end
-						Flinging = RunService.RenderStepped:Connect(a1)
-						local function a2()
-							for i,v in next, character:GetChildren() do
-								if v:IsA('BasePart') then
-									v.CanCollide = false
-								end
-							end
-						end
-						noclipping = RunService.Stepped:Connect(a2)
-						
-						local BV = Instance.new("BodyVelocity")
-						BV.Parent = HRP
-						BV.Velocity = Vector3.new(0,0,0)
-						BV.MaxForce = Vector3.new(1/0, 1/0, 1/0)
-						
-						wait(.7)
-						character.Humanoid:ChangeState("GettingUp")
-						Flinging:Disconnect()
-						noclipping:Disconnect()
-					end
-				end
-			end
-		end)
-	end
+
+local autokillfling = function(Player, Delay)
+    pcall(function()
+    local radius = math.random(5,10) --- orbit size
+        workspace['FallenPartsDestroyHeight'] = 0 / 0
+        workspace.CurrentCamera.CameraSubject = Player.Character.Humanoid
+        local Target = Player.Character.HumanoidRootPart
+        local Me = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local LastCF = Me.CFrame
+        local Delay = Delay or 1 / 5
+        local Angle = 165
+        game.Players.LocalPlayer:RequestFriendship(Player, Player)
+        autokillfling = game:GetService('RunService').Stepped:connect(function()
+            Me.CFrame = Target and Target.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
+            LocalPlayer.Character.Humanoid:ChangeState("GettingUp")
+            LocalPlayer.Character.Humanoid:ChangeState("Swimming")
+        end)
+
+        wait(Delay)
+        autokillfling:Disconnect()
+    end)
+end
+
+task.spawn(function()
+    while true do
+        for _, v in ipairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer not table.find(WhitelistedPlayers, plr.UserId) then
+                autokillfling(v, 1.5)
+            end
+        end
+        wait()
+    end
 end)
+
 
 spawn(function()
     while true do
