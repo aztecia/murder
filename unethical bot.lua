@@ -392,7 +392,7 @@ local autokillfling = function(Player, Delay)
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Stepped:connect(function()
             Me.CFrame = Target and Target.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
-            LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(-9e9, 9e9, -9e9)
+            LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(-1e1, 1e1, -1e1)
             LocalPlayer.Character.Humanoid:ChangeState("Swimming")
         end)
 
@@ -401,8 +401,8 @@ local autokillfling = function(Player, Delay)
     end)
 end
 
-local BV = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
-	BV.Velocity = Vector3.new(-9e99, 9e99, -9e99)
+local BV = Instance.new("BodyVelocity")
+	BV.Velocity = Vector3.new(-9e9, 9e9, -9e9)
 	BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
 
 task.spawn(function()
