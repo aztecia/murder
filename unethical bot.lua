@@ -390,10 +390,8 @@ local autokillfling = function(Player, Delay)
         local Delay = Delay or 1 / 5
         local Angle = 165
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
-        autokillfling = game:GetService('RunService').Stepped:connect(function()
+        autokillfling = game:GetService('RunService').Heartbeat:connect(function()
             Me.CFrame = Target and Target.CFrame * CFrame.Angles(math.rad(math.random(0, 360)), math.rad(math.random(0, 360)), math.rad(math.random(0, 360))) * CFrame.new(0,0,math.random(-radius,radius))
-            LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(9e1, -9e9, 9e3)
-            LocalPlayer.Character.HumanoidRootPart.RotVelocity = Vector3.new(9e1, -9e9, 9e3)
         end)
 
         wait(Delay)
@@ -401,8 +399,8 @@ local autokillfling = function(Player, Delay)
     end)
 end
 
-local BV = Instance.new("BodyVelocity")
-BV.Velocity = Vector3.new(-9e9, 9e9, -9e9)
+local BV = Instance.new("BodyVelocity", game.Players.LocalPlayer.Character.HumanoidRootPart)
+BV.Velocity = Vector3.new(-9e99, 9e99, -9e99)
 BV.MaxForce = Vector3.new(-9e9, -9e9, -9e9)
 
 spawn(function()
