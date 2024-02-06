@@ -383,7 +383,7 @@ local Nearby = function(TP, WP)
     if WC and TC then
         local WPS, TPS = WC["PrimaryPart"]["Position"] or nil, TC["PrimaryPart"]["Position"] or nil
         if WPS and TPS then
-            return ((WPS - TPS)["magnitude"] <= Settings["Distance"])
+            return ((WPS - TPS)["magnitude"] <= 18)
         else
             return false
         end
