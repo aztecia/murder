@@ -8,7 +8,7 @@ LocalPlayer, PlaceID = Players.LocalPlayer, game.PlaceId
 
 --[ Tables ]--
 
-local Blacklist = {4744111286, 4400344270}
+local Blacklist = {4744111286, 4400344270, 5471562711}
 
 local Whitelist = {4086783457, 102605219}
 
