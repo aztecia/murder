@@ -394,7 +394,7 @@ end
 
 local autokillfling = function(Player, Delay)
     pcall(function()
-	for _, v in next, WhitelistedPlayers do
+	for _, v in next, game:GetService("Players"):GetPlayers() do
 	    local WP = table.find(WhitelistedPlayers, v.UserId)
 	    if WP and Nearby(Player, WP) then
 			return
@@ -411,7 +411,7 @@ local autokillfling = function(Player, Delay)
         game.Players.LocalPlayer:RequestFriendship(Player, Player)
         autokillfling = game:GetService('RunService').Heartbeat:connect(function()
             Me.CFrame = Target and Target.CFrame * CFrame.new(0,0,math.random(-radius,radius)) + Target.Parent.Humanoid.MoveDirection * 9.5
-	    Me.RotVelocity = Vector3.new(-9e9, 9e9, -9e9)
+	    	Me.RotVelocity = Vector3.new(-9e9, 9e9, -9e9)
         end)
 
         wait(Delay)
