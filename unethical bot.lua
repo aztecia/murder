@@ -423,9 +423,11 @@ end
 spawn(function()
     while true do
         for _, v in ipairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer and v.Character:FindFirstChild("Humanoid").Sit == false and not table.find(WhitelistedPlayers, v.UserId) then
-                autokillfling(v, 0.5)
-            end
+			pcall(function()
+	            if v ~= game.Players.LocalPlayer and not table.find(WhitelistedPlayers, v.UserId) then
+	                autokillfling(v, 0.5)
+	            end
+			end)		
         end
         wait()
     end
